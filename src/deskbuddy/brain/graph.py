@@ -8,7 +8,7 @@ from langgraph.types import Send
 from deskbuddy.brain.agent import run_job
 from deskbuddy.brain.intake import split_order
 from deskbuddy.brain.report import format_report
-from deskbuddy.brain.types import JobResult
+from deskbuddy.brain.types import CheckResult, JobResult
 
 
 class OrderState(TypedDict, total=False):
@@ -22,10 +22,15 @@ class OrderState(TypedDict, total=False):
 def build_graph(deps):
     def intake(state: OrderState) -> dict:
         plan = split_order(deps.settings, state["order"], deps.memory.recent_messages(6))
+        if plan.reply and not plan.jobs:   # just talking: answer, no job, no verdict
+            return {"ack": "", "jobs": [],
+                    "results": [JobResult(state["order"], CheckResult(True), answer=plan.reply)]}
         deps.step(plan.ack)
         return {"ack": plan.ack, "jobs": plan.jobs}
 
     def fan_out(state: OrderState):
+        if not state["jobs"]:
+            return "report"
         return [Send("job", {"order": state["order"], "goal": goal}) for goal in state["jobs"]]
 
     def job(payload: dict) -> dict:
@@ -39,7 +44,7 @@ def build_graph(deps):
     graph.add_node("job", job)
     graph.add_node("report", report)
     graph.add_edge(START, "intake")
-    graph.add_conditional_edges("intake", fan_out, ["job"])
+    graph.add_conditional_edges("intake", fan_out, ["job", "report"])
     graph.add_edge("job", "report")
     graph.add_edge("report", END)
     return graph.compile()

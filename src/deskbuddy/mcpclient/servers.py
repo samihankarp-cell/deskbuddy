@@ -73,6 +73,24 @@ def _pairs(text: str, sep: str) -> dict[str, str]:
     return out
 
 
+def _headers(url: str, extra: str) -> dict[str, str]:
+    """Headers from the box. `Name: value; Name2: value`, or just a bare key, which is sent the
+    way that server expects. Composio's connect.composio.dev wants `x-consumer-api-key`."""
+    headers = _pairs(extra, ":")
+    host = re.sub(r"^https?://", "", url, flags=re.I).split("/")[0].lower()
+    if not headers and extra.strip():
+        key = re.sub(r"^bearer\s+", "", extra.strip(), flags=re.I)
+        if host.startswith("connect.composio"):
+            headers = {"x-consumer-api-key": key}
+        elif "composio" in host:
+            headers = {"x-api-key": key}
+        else:
+            headers = {"Authorization": f"Bearer {key}"}
+    if host.startswith("connect.composio") and "x-api-key" in headers:
+        headers["x-consumer-api-key"] = headers.pop("x-api-key")
+    return headers
+
+
 def from_fields(name: str, target: str, extra: str = "") -> Server:
     """Build a server from the three boxes on the Settings page.
     `target`: a web address (https://...) or a program with its arguments (npx -y some-server).
@@ -84,7 +102,7 @@ def from_fields(name: str, target: str, extra: str = "") -> Server:
         raise ServerError("enter its web address, or the program to run")
     if re.match(r"https?://", target, re.I):
         kind = SSE if target.rstrip("/").lower().endswith("/sse") else HTTP
-        return Server(name, kind, url=target, headers=_pairs(extra, ":"))
+        return Server(name, kind, url=target, headers=_headers(target, extra))
     try:
         parts = [p.strip('"') for p in shlex.split(target, posix=False)]
     except ValueError as error:
@@ -113,7 +131,7 @@ def from_json(text: str, fallback_name: str = "") -> list[Server]:
         if entry.get("url") or entry.get("serverUrl"):
             url = str(entry.get("url") or entry.get("serverUrl"))
             kind = SSE if (entry.get("type") == "sse" or url.rstrip("/").lower().endswith("/sse")) else HTTP
-            out.append(Server(slug(name), kind, url=url, headers=dict(entry.get("headers") or {})))
+            out.append(Server(slug(name), kind, url=url, headers=_headers(url, "") | dict(entry.get("headers") or {})))
         elif entry.get("command"):
             out.append(Server(slug(name), STDIO, command=str(entry["command"]),
                               args=[str(a) for a in entry.get("args") or []],

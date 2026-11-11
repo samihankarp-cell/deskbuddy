@@ -34,6 +34,8 @@ Rules:
   needs their attention first, then sum up everything else in a few words (for example
   "One email about your job application. The rest is newsletters and job alerts.").
   No lists, no counts of everything, no email addresses.
+- If the user is only chatting, call finish and put a friendly one or two sentence reply in
+  "answer", like a person talking. Never give_up on small talk.
 - If the job cannot be done, call give_up with the real reason in plain words.
 - Never claim something you did not observe in a tool result."""
 

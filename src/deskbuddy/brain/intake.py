@@ -10,8 +10,14 @@ REPEAT = re.compile(r"^\s*(please\s+)?(do|run|play|try)?\s*(that|it|this)?\s*(on
 UNDO = re.compile(r"^\s*(please\s+)?undo(\s+(that|it|this|the last (thing|one|job)))?[\s.!]*$", re.I)
 
 PROMPT = """You are the ears of Desk Buddy, a desktop robot that does jobs on the user's PC.
-Split the user's order into separate jobs and write a very short acknowledgement.
-Reply with JSON only: {"ack": "...", "jobs": ["...", "..."]}
+Decide whether the user wants something DONE, or is just talking.
+Reply with JSON only: {"ack": "...", "jobs": ["...", "..."], "reply": ""}
+- Just talking (a greeting, thanks, small talk, a question about you, or a plain question you
+  can answer from general knowledge without touching the PC, browser, files, email or the
+  web): jobs is [], ack is "", and reply is a natural, friendly answer in one or two short
+  sentences, like a person would say. No labels, no "Acknowledged", no "Done".
+- Anything that needs the PC, a browser, an app, files, email, a reminder, today's news or
+  any live information is a job, and reply is "".
 - ack: at most 8 words, specific, in the voice of a calm, capable personal assistant,
   like "On it: Gmail and your song" or "Right away, opening Notepad". Never say it is done.
 - jobs: one entry per independent job, each a full sentence that stands on its own
@@ -20,13 +26,14 @@ Reply with JSON only: {"ack": "...", "jobs": ["...", "..."]}
 - Split ONLY when the parts are unrelated and could be done at the same time
   ("check Gmail" and "play a song"). Steps that build on each other are ONE job:
   "make a folder and put a file in it" is one job, "open Notepad and type hello" is one job.
-- If the user is only chatting or asking a question, that is one job too."""
+- When in doubt, treat it as a job."""
 
 
 @dataclass
 class AckPlan:
     ack: str
     jobs: list[str]
+    reply: str = ""     # set when the user was only talking: the answer, and no job is run
 
 
 def is_repeat(text: str) -> bool:
@@ -47,6 +54,9 @@ def split_order(settings, order: str, history: list[tuple[str, str]]) -> AckPlan
             HumanMessage(f"Recent conversation:\n{talk or '(none)'}\n\nOrder: {order}"),
         ])
         data = parse_json(text_of(reply))
+        said = str((data or {}).get("reply") or "").strip()
+        if said and not (data or {}).get("jobs"):
+            return AckPlan("", [], said[:400])
         jobs = [j.strip() for j in (data or {}).get("jobs", []) if isinstance(j, str) and j.strip()]
         if not jobs:
             return fallback

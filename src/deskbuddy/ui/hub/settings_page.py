@@ -199,7 +199,7 @@ class SettingsPage(Page):
         grid.setColumnStretch(1, 1)
         self.mcp_name = line_edit("composio")
         self.mcp_target = line_edit("https://...  or  npx -y some-server  (or paste the JSON from its docs)")
-        self.mcp_extra = line_edit("optional: a header like  x-api-key: ...   or  KEY=value")
+        self.mcp_extra = line_edit("your key (paste it as is), or  Header: value  /  KEY=value")
         for row, (label, edit) in enumerate([("Name", self.mcp_name), ("Address or command", self.mcp_target),
                                              ("Header or variable", self.mcp_extra)]):
             edit.setAccessibleName(label)

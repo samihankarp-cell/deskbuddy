@@ -100,3 +100,21 @@ def test_unreachable_server_reports_failure(tmp_path, monkeypatch):
         assert hub.status()[0][1] == "failed" and hub.status()[0][2]
     finally:
         hub.shutdown()
+
+
+def test_bare_key_is_sent_the_way_each_server_expects():
+    [c] = servers.parse("c", "https://connect.composio.dev/mcp", "ck_abc")
+    assert c.headers == {"x-consumer-api-key": "ck_abc"}
+    [c] = servers.parse("c", "https://connect.composio.dev/mcp", "x-api-key: ck_abc")   # wrong name fixed
+    assert c.headers == {"x-consumer-api-key": "ck_abc"}
+    [m] = servers.parse("m", "https://mcp.composio.dev/x/mcp", "ak_1")
+    assert m.headers == {"x-api-key": "ak_1"}
+    [o] = servers.parse("o", "https://other.test/mcp", "Bearer sk-1")
+    assert o.headers == {"Authorization": "Bearer sk-1"}
+
+
+def test_refused_key_is_explained_in_one_line():
+    from deskbuddy.mcpclient.hub import _explain
+
+    text = _explain("Client error '401 Unauthorized' for url 'x'\nFor more information check: y")
+    assert "refused the key" in text and "\n" not in text

@@ -73,6 +73,15 @@ def _flatten(error: BaseException) -> str:
     return (str(error) or type(error).__name__)[:200]
 
 
+def _explain(message: str) -> str:
+    """One short line, with the usual causes spelled out."""
+    first = message.strip().splitlines()[0] if message.strip() else "unknown error"
+    if "401" in first or "403" in first or "nauthorized" in first:
+        return ("the server refused the key (" + ("401" if "401" in first else "403") + "). Check the key "
+                "and its header. Composio's connect.composio.dev wants the ck_ key as x-consumer-api-key.")
+    return first[:200]
+
+
 def _text_of(result) -> str:
     parts = []
     for item in getattr(result, "content", None) or []:
@@ -202,7 +211,7 @@ class McpHub:
         except asyncio.CancelledError:
             raise
         except BaseException as error:
-            state.status, state.error = "failed", _flatten(error)
+            state.status, state.error = "failed", _explain(_flatten(error))
             if "timeout" in type(error).__name__.lower() or isinstance(error, asyncio.TimeoutError):
                 state.error = "it did not answer in time"
         finally:
