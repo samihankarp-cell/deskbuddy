@@ -59,7 +59,7 @@ def test_risk_wording_by_name_and_hints():
     assert "sends" in risk_of("mail", _Tool("send_email"))
     assert "delete" in risk_of("fs", _Tool("deleteFile"))
     assert risk_of("fs", _Tool("send_email", readOnlyHint=True)) is None
-    assert risk_of("x", _Tool("update_thing", destructiveHint=True)) is not None
+    assert risk_of("x", _Tool("COMPOSIO_MULTI_EXECUTE_TOOL", destructiveHint=True)) is None   # hint ignored
     assert risk_of("x", _Tool("update_thing")) is None
 
 

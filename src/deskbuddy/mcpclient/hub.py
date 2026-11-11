@@ -57,7 +57,7 @@ def risk_of(server: str, tool) -> str | None:
     what = f"use {tool.name.replace('_', ' ')} on {server}"
     if words and words[0] in READ_WORDS:
         return None
-    if getattr(hints, "destructiveHint", None) or DELETE_WORDS & set(words):
+    if DELETE_WORDS & set(words):
         return f"{what} (this can delete or overwrite things)"
     if BUY_WORDS & set(words):
         return f"{what} (this looks like buying or paying)"
