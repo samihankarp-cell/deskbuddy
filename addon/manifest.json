@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Desk Buddy",
+  "version": "0.1.1",
+  "description": "Lets the Desk Buddy desktop robot work in this browser's tabs. Talks only to Desk Buddy on this PC.",
+  "permissions": ["tabs", "scripting", "alarms"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": { "id": "deskbuddy@deskbuddy.local", "strict_min_version": "121.0" }
+  }
+}
