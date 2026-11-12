@@ -28,9 +28,19 @@ class Bridge:
         self._pending: dict[int, tuple] = {}  # id -> (connection asked, future)
         self._ids = itertools.count(1)
         self.start_error: str | None = None
+        self._done: asyncio.Event | None = None   # set to close the server (made on the loop)
+        self._thread: threading.Thread | None = None
 
     def start(self) -> None:
-        threading.Thread(target=self._run, daemon=True, name="buddy-bridge").start()
+        self._thread = threading.Thread(target=self._run, daemon=True, name="buddy-bridge")
+        self._thread.start()
+
+    def stop(self, timeout: float = 5) -> None:
+        """Close the server and end its thread (tests, and a clean quit)."""
+        if self._done is not None and self._loop.is_running():
+            self._loop.call_soon_threadsafe(self._done.set)
+        if self._thread is not None:
+            self._thread.join(timeout)
 
     def _run(self) -> None:
         asyncio.set_event_loop(self._loop)
@@ -40,8 +50,9 @@ class Bridge:
             self.start_error = str(error)
 
     async def _serve(self) -> None:
+        self._done = asyncio.Event()
         async with serve(self._handle, "127.0.0.1", self._port, max_size=8 * 1024 * 1024):
-            await asyncio.Future()
+            await self._done.wait()
 
     async def _handle(self, ws) -> None:
         origin = ws.request.headers.get("Origin", "")

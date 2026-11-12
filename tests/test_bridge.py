@@ -35,7 +35,8 @@ def bridge(tmp_path):
         except OSError:
             time.sleep(0.05)
     yield b
-    b._loop.call_soon_threadsafe(b._loop.stop)
+    b.stop()
+    assert b._thread is not None and not b._thread.is_alive()
 
 
 def run(coro):
