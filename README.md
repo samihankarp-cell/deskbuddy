@@ -64,7 +64,9 @@ An order goes through a small [LangGraph](https://langchain-ai.github.io/langgra
 
 ## Quick start
 
-You need Windows 10 or 11, [uv](https://docs.astral.sh/uv/), and a key for any supported AI provider. Ollama or LM Studio need no key.
+**Just want to try it?** Download `DeskBuddy-…-windows-x64.zip` from the [latest release](https://github.com/samihankarp-cell/deskbuddy/releases/latest), unzip it and run `DeskBuddy.exe` (it isn't code-signed yet, so SmartScreen may ask you to confirm). Then follow steps 1 to 3 below.
+
+To run from source you need Windows 10 or 11, [uv](https://docs.astral.sh/uv/), and a key for any supported AI provider. Ollama or LM Studio need no key.
 
 ```bash
 git clone https://github.com/samihankarp-cell/deskbuddy.git
@@ -128,6 +130,7 @@ tests/
 
 - **Logs:** `%APPDATA%\DeskBuddy\deskbuddy.log` (Settings has an "Open logs folder" button). Set `DESKBUDDY_DEBUG=1` for more detail.
 - **Packaged app:** `uv run --with pyinstaller python scripts/build_exe.py` builds `dist\DeskBuddy\DeskBuddy.exe`, with the add-on beside it.
+- **Releases:** bump `version` in `pyproject.toml`, add its section to `CHANGELOG.md`, then push a tag such as `v0.2.0`. The [Release workflow](.github/workflows/release.yml) runs the tests, builds the exe on Windows and publishes the zip with notes taken from the changelog.
 - **Screenshots:** `uv run python scripts/hub_screens.py <folder> all both` renders every dashboard section with sample data.
 
 To add a tool or change something, see [CONTRIBUTING.md](CONTRIBUTING.md).
@@ -146,7 +149,7 @@ Page text, and for some apps a screenshot of that app's window, go to the AI pro
 
 ## Roadmap
 
-- A packaged `.exe` attached to each GitHub release
+- Code-signing for `DeskBuddy.exe`, so SmartScreen stops warning
 - The add-on in the Chrome Web Store and Firefox Add-ons, so it stays installed
 - Keys in Windows Credential Manager instead of plain-text files
 - Risk checks that understand more languages and button names
