@@ -36,6 +36,11 @@ dependencies = [
     "websockets>=17.4",
 ]
 
+[project.urls]
+Homepage = "https://github.com/samihankarp-cell/deskbuddy"
+Issues = "https://github.com/samihankarp-cell/deskbuddy/issues"
+Changelog = "https://github.com/samihankarp-cell/deskbuddy/blob/main/CHANGELOG.md"
+
 [project.scripts]
 deskbuddy = "deskbuddy.app:main"
 

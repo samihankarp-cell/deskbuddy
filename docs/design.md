@@ -1,7 +1,7 @@
 # Desk Buddy: Design
 
 Date: 2026-11-09
-Status: awaiting owner approval
+Status: approved and built (this is the original design; the code has moved on since)
 
 Items marked **(owner)** were decided by the owner. Items marked **(my call)** are the
 designer's defaults and can be overruled.

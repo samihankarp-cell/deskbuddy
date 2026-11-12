@@ -1,0 +1,20 @@
+name: Feature request
+description: Suggest something new
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What do you want Desk Buddy to do?
+      description: Describe the task in your own words, as you would say it to the robot.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: How could it work?
+      description: Optional. Ideas are welcome but not required.
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What do you do today instead?

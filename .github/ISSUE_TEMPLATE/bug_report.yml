@@ -1,0 +1,55 @@
+name: Bug report
+description: Something did not work the way it should
+labels: [bug]
+body:
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11 23H2
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Desk Buddy version or commit
+      placeholder: 0.1.0 or a commit hash
+    validations:
+      required: true
+  - type: input
+    id: provider
+    attributes:
+      label: AI provider and model
+      placeholder: OpenAI, gpt-4o
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser (if it involves the add-on)
+      placeholder: Chrome 130
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Say '...'. 2. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log excerpt
+      description: Please remove API keys, headers, email addresses and other personal information before pasting.
+      render: text

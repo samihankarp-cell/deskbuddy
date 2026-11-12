@@ -7,10 +7,14 @@ wheels/
 *.egg-info
 
 # Virtual environments
-.venv
+.venv/
 
+# Secrets and local data
 .env
 *.db
+*.log
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
 .superpowers/
-.venv/
-__pycache__/
