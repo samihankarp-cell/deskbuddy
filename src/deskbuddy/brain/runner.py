@@ -1,6 +1,8 @@
 """Runs orders on a background thread and tells the window what to show."""
 import queue
 import threading
+import webbrowser
+from urllib.parse import urlparse
 from dataclasses import dataclass
 from typing import Any, Callable
 
@@ -13,6 +15,20 @@ from deskbuddy.brain.types import CheckResult, JobResult
 from deskbuddy.state import BuddyState
 
 CONFIRM_TIMEOUT = 180  # seconds to wait for Yes / No before treating it as No
+
+
+def _bad_url(url: str) -> str:
+    """Why a link is not safe to open, or "" when it is fine."""
+    if not isinstance(url, str) or any(c.isspace() or ord(c) < 32 or ord(c) == 127 for c in url):
+        return "That link looks odd, so I didn't open it."
+    try:
+        parts = urlparse(url)
+        host = parts.hostname
+    except ValueError:
+        return "That link looks odd, so I didn't open it."
+    if parts.scheme not in ("http", "https") or not host:
+        return "That link looks odd, so I didn't open it."
+    return ""
 
 
 @dataclass
@@ -65,6 +81,31 @@ class Runner(QObject):
             self.say.emit("On it.")
         self._orders.put(order)
 
+    def open_url(self, url: str) -> None:
+        """Open a link the user accepted, directly. The text never reaches the model."""
+        reason = _bad_url(url)
+        if reason:
+            self.state.emit(BuddyState.COULDNT)
+            self.say.emit(reason)
+            return
+        self.state.emit(BuddyState.WORKING)
+        threading.Thread(target=self._open_url, args=(url,), daemon=True,
+                         name="buddy-open-url").start()
+
+    def _open_url(self, url: str) -> None:
+        ok, text = True, "Opened it."
+        try:
+            bridge = self.deps.bridge
+            if bridge is not None and bridge.connected:
+                bridge.call("open", url=url, newWindow=False)
+            elif not webbrowser.open_new_tab(url):
+                ok, text = False, "I couldn't open the browser."
+        except Exception as error:
+            ok, text = False, friendly_error(error)
+        self.deps.memory.add_message("buddy", text)
+        self.state.emit(BuddyState.DONE if ok else BuddyState.COULDNT)
+        self.say.emit(text)
+
     def answer(self, yes: bool) -> None:
         self._answer_value = yes
         self._answer.set()
@@ -87,8 +128,17 @@ class Runner(QObject):
         self.say.emit(label)
 
     def _confirm(self, question: str) -> bool:
+        if self._stop.is_set():
+            return False
+        return self._ask(question, honour_stop=True)
+
+    def ask_user(self, question: str) -> bool:
+        """A question that is not part of a job (e.g. pairing the add-on): Esc doesn't cancel it."""
+        return self._ask(question, honour_stop=False)
+
+    def _ask(self, question: str, honour_stop: bool) -> bool:
         with self._ask_lock:  # one question on screen at a time
-            if self._stop.is_set():
+            if honour_stop and self._stop.is_set():
                 return False
             self._answer.clear()
             self._asking = True

@@ -1,8 +1,19 @@
 [project]
 name = "deskbuddy"
 version = "0.1.0"
-description = "Add your description here"
+description = "A small desktop robot for Windows that does what you tell it, by voice or typing, in your browser, your apps and your files."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["desktop-assistant", "ai-agent", "windows", "voice", "automation", "langgraph", "mcp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Desktop Environment",
+]
 authors = [
     { name = "samihan karpe", email = "samihankarp@gmail.com" }
 ]
@@ -15,6 +26,7 @@ dependencies = [
     "langgraph>=1.2.20",
     "mcp>=1.9,<2",
     "numpy>=2.5.4",
+    "pillow>=11",
     "pyautogui>=0.9.54",
     "pyside6-essentials>=6.12.0",
     "python-dotenv>=1.2.4",

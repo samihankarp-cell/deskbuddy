@@ -33,5 +33,27 @@ def protected(path: Path) -> bool:
     """Windows' own folders. Touching them counts as changing Windows settings."""
     roots = [os.environ.get("SystemRoot", r"C:\Windows"), os.environ.get("ProgramFiles", ""),
              os.environ.get("ProgramFiles(x86)", ""), os.environ.get("ProgramData", "")]
-    full = str(path.resolve()).lower()
-    return any(root and full.startswith(root.lower()) for root in roots)
+    full = str(path.resolve()).lower().rstrip("\\/")
+    for root in roots:
+        root = root.lower().rstrip("\\/")
+        if root and (full == root or full.startswith(root + os.sep)):
+            return True
+    return False
+
+
+def important(path: Path) -> bool:
+    """Whole places nobody means to delete or move: drive roots, home, Desktop and friends,
+    OneDrive, and the folders above them."""
+    full = path.resolve()
+    if full.parent == full:  # a drive root such as C:\
+        return True
+    home = Path.home()
+    places = [home, home / "OneDrive"]
+    for name in KNOWN:
+        places += [known_folder(name), home / KNOWN[name], home / "OneDrive" / KNOWN[name]]
+    keep = set()
+    for place in places:
+        place = place.resolve()
+        keep.add(str(place).lower())
+        keep.update(str(parent).lower() for parent in place.parents)
+    return str(full).lower() in keep

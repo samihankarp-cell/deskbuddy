@@ -95,6 +95,8 @@ def test_system_mode_follows_a_faked_color_scheme_live(qtbot, dash, memory):
     hints = QGuiApplication.styleHints()
     if not hasattr(hints, "setColorScheme"):
         pytest.skip("this Qt cannot fake the colour scheme (needs 6.8)")
+    if QGuiApplication.platformName() == "offscreen":   # CI runs headless; it ignores the fake
+        pytest.skip("the offscreen platform does not report colour scheme changes")
     assert dash.mode == "system" and not styles.active().dark
     hints.setColorScheme(Qt.ColorScheme.Dark)
     qtbot.waitUntil(lambda: styles.active().dark, timeout=3000)

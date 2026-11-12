@@ -27,6 +27,7 @@ class Ctx:
     stopped: Callable[[], bool]
     tab_id: int | None = None
     elements: dict = field(default_factory=dict)   # last browser_look, id -> element
+    look_token: str = ""                           # last browser_look's secret page-marker token
     controls: dict = field(default_factory=dict)   # last app_look, id -> control
     places: set = field(default_factory=set)       # sites/apps touched, for the notebook
     used_app: bool = False

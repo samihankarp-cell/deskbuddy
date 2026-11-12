@@ -1,5 +1,7 @@
 // Desk Buddy add-on. Connects to the Desk Buddy app on this PC and runs its requests in tabs.
-const PORT = 8765;
+// The app's port is set in its Settings and the add-on can't read it, so try this small range in turn.
+const PORTS = [8765, 8766, 8767, 8768, 8769];
+let portIndex = 0;
 let ws = null;
 const recentTabs = []; // tabs opened lately, so a click that opens a new tab can be followed
 
@@ -20,12 +22,13 @@ function send(obj) {
 function connect() {
   if (ws && ws.readyState <= 1) return;
   try {
-    ws = new WebSocket(`ws://127.0.0.1:${PORT}`);
+    ws = new WebSocket(`ws://127.0.0.1:${PORTS[portIndex]}`);
   } catch (e) {
     ws = null;
     return;
   }
-  ws.onopen = () => send({ hello: browserName() });
+  let opened = false;
+  ws.onopen = () => { opened = true; send({ hello: browserName() }); };
   ws.onmessage = async (event) => {
     const msg = JSON.parse(event.data);
     if (msg.id === undefined) return;
@@ -36,7 +39,11 @@ function connect() {
       send({ id: msg.id, ok: false, error: String(e?.message || e) });
     }
   };
-  ws.onclose = () => { ws = null; setTimeout(connect, 2000); };
+  ws.onclose = () => {
+    ws = null;
+    if (!opened) portIndex = (portIndex + 1) % PORTS.length; // not here: try the next port next time
+    setTimeout(connect, 2000);
+  };
   ws.onerror = () => { try { ws.close(); } catch (e) {} };
 }
 
@@ -120,14 +127,14 @@ async function handle(method, p) {
       return inPage(p.tabId, pageLook, [p.max || 120]);
     case "click": {
       const before = Date.now();
-      const result = await inPage(p.tabId, pageClick, [p.id]);
+      const result = await inPage(p.tabId, pageClick, [p.id, p.token]);
       await sleep(900);
       const opened = recentTabs.filter((t) => t.at >= before && t.opener === p.tabId).pop();
       const tab = await waitLoaded(opened ? opened.id : p.tabId, 12000);
       return { ...result, ...info(tab), newTab: Boolean(opened) };
     }
     case "type": {
-      const result = await inPage(p.tabId, pageType, [p.id, p.text, Boolean(p.enter)]);
+      const result = await inPage(p.tabId, pageType, [p.id, p.text, Boolean(p.enter), p.token]);
       if (p.enter) { await sleep(900); await waitLoaded(p.tabId, 12000); }
       return { ...result, ...info(await chrome.tabs.get(p.tabId)) };
     }
@@ -153,7 +160,15 @@ async function handle(method, p) {
 
 function pageLook(max) {
   const selector = 'a[href],button,input,textarea,select,summary,[role=button],[role=link],[role=tab],[role=menuitem],[role=option],[role=checkbox],[role=textbox],[role=searchbox],[role=combobox],[contenteditable=""],[contenteditable=true],[onclick]';
-  document.querySelectorAll("[data-deskbuddy]").forEach((e) => e.removeAttribute("data-deskbuddy"));
+  // The marker attribute's NAME carries a fresh random token, so a page script cannot copy
+  // it onto another element ahead of time to redirect a click. Residual risk: a page can still
+  // list attributes after the look and react, but the click follows straight away.
+  const bytes = crypto.getRandomValues(new Uint8Array(8));
+  const token = "t" + [...bytes].map((b) => b.toString(16).padStart(2, "0")).join("");
+  const attr = `data-db-${token}`;
+  for (const e of document.querySelectorAll("*")) {
+    for (const a of [...e.attributes]) if (a.name.startsWith("data-db-")) e.removeAttribute(a.name);
+  }
   const out = [];
   const vh = innerHeight, vw = innerWidth;
   for (const el of document.querySelectorAll(selector)) {
@@ -165,15 +180,16 @@ function pageLook(max) {
     const label = (el.getAttribute("aria-label") || el.placeholder || el.name || el.title || "").slice(0, 60);
     const text = (el.innerText || el.value || el.alt || "").replace(/\s+/g, " ").trim().slice(0, 90);
     if (!text && !label) continue;
-    el.setAttribute("data-deskbuddy", String(out.length));
+    el.setAttribute(attr, String(out.length));
     out.push({ id: out.length, tag: el.tagName.toLowerCase(), type: el.type || el.getAttribute("role") || "", text, label, inView: r.top >= 0 && r.bottom <= vh });
     if (out.length >= max) break;
   }
-  return { url: location.href, title: document.title, scrollY: Math.round(scrollY), pageHeight: document.documentElement.scrollHeight, viewHeight: vh, elements: out };
+  return { token, url: location.href, title: document.title, scrollY: Math.round(scrollY), pageHeight: document.documentElement.scrollHeight, viewHeight: vh, elements: out };
 }
 
-function pageClick(id) {
-  const el = document.querySelector(`[data-deskbuddy="${id}"]`);
+function pageClick(id, token) {
+  if (!/^t[0-9a-f]{16}$/.test(String(token || ""))) return { error: "look at the page first" };
+  const el = document.querySelector(`[data-db-${token}="${Number(id)}"]`);
   if (!el) return { error: `element ${id} is no longer on the page; look again` };
   el.scrollIntoView({ block: "center" });
   if (el.focus) el.focus();
@@ -181,8 +197,9 @@ function pageClick(id) {
   return { clicked: (el.innerText || el.value || el.getAttribute("aria-label") || "").trim().slice(0, 80) };
 }
 
-function pageType(id, text, enter) {
-  const el = document.querySelector(`[data-deskbuddy="${id}"]`);
+function pageType(id, text, enter, token) {
+  if (!/^t[0-9a-f]{16}$/.test(String(token || ""))) return { error: "look at the page first" };
+  const el = document.querySelector(`[data-db-${token}="${Number(id)}"]`);
   if (!el) return { error: `element ${id} is no longer on the page; look again` };
   if (el.type === "password") return { error: "that is a password box; Desk Buddy never types passwords" };
   el.scrollIntoView({ block: "center" });

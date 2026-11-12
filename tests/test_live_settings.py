@@ -50,7 +50,7 @@ def test_reload_changes_the_same_object_and_the_next_model_uses_it(env):
     env.write_text("DESKBUDDY_API_KEY=first\nDESKBUDDY_PROVIDER=nvidia\n")
     settings = config.load()
     held_by_brain = settings                      # the runner keeps this very object
-    env.write_text("DESKBUDDY_API_KEY=second\nDESKBUDDY_PROVIDER=openai\nDESKBUDDY_WS_PORT=9000\n")
+    env.write_text("DESKBUDDY_API_KEY=second\nDESKBUDDY_PROVIDER=openai\nDESKBUDDY_WS_PORT=8767\n")
     changed = config.reload(settings)
     assert {"api_key", "provider", "base_url", "agent_model", "ws_port"} <= set(changed)
     assert held_by_brain.api_key == "second" and held_by_brain.provider == "openai"

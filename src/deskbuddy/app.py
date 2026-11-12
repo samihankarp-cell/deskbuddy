@@ -26,6 +26,9 @@ def greeting() -> str:
 
 
 def main() -> int:
+    from deskbuddy import log
+
+    log.setup()   # first, so a crash while starting up is in the log too
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)  # hiding the robot must not quit the app
     window = BuddyWindow()
@@ -76,7 +79,7 @@ def main() -> int:
         bridge = Bridge(settings.ws_port, settings.data_dir / "paired.json")
         runner = Runner(settings, memory, bridge)
         parts["settings"] = settings
-        bridge.approve = runner.deps.confirm  # a new add-on must be allowed once
+        bridge.approve = runner.ask_user  # a new add-on must be allowed once
         bridge.start()
         threading.Thread(target=installed_apps, daemon=True).start()  # so "not installed" is quick
 
@@ -153,7 +156,7 @@ def main() -> int:
         def show_idea(idea) -> None:
             made = make_offer(
                 idea.say,
-                lambda: (proactive.note_answer(memory, True), runner.submit(f"Open {idea.url}")),
+                lambda: (proactive.note_answer(memory, True), runner.open_url(idea.url)),
                 lambda: proactive.note_answer(memory, False),
             )
             if made:

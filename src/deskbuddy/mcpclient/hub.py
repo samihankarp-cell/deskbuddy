@@ -47,22 +47,54 @@ def _words(name: str) -> list[str]:
     return [w for w in re.split(r"[^A-Za-z0-9]+", spaced.lower()) if w]
 
 
-def risk_of(server: str, tool) -> str | None:
-    """Words for the Yes / No question, or None when the tool looks harmless. A server's own
-    hints win; otherwise the tool's name decides, as it does for Composio actions."""
-    hints = getattr(tool, "annotations", None)
-    if getattr(hints, "readOnlyHint", None):
-        return None
-    words = _words(tool.name)
-    what = f"use {tool.name.replace('_', ' ')} on {server}"
-    if words and words[0] in READ_WORDS:
+# Keys that name an action to run. Plain "name" is left out: file and record tools use it for
+# ordinary names ("delete_old.txt") and would ask for no reason.
+ACTION_KEYS = {"tool_slug", "slug", "action", "tool_name", "tool"}
+
+
+def _actions_in(value, depth: int = 0) -> list[str]:
+    """Action names a call's arguments point at (Composio's execute tools take them as data)."""
+    found: list[str] = []
+    if depth > 6:
+        return found
+    if isinstance(value, dict):
+        for key, item in value.items():
+            if str(key).lower() in ACTION_KEYS and isinstance(item, str) and item.strip():
+                found.append(item.strip())
+            else:
+                found += _actions_in(item, depth + 1)
+    elif isinstance(value, list):
+        for item in value[:50]:
+            found += _actions_in(item, depth + 1)
+    return found
+
+
+def _kind(name: str, action: bool = False) -> str | None:
+    words = _words(name)
+    if not action and words and words[0] in READ_WORDS:
         return None
     if DELETE_WORDS & set(words):
-        return f"{what} (this can delete or overwrite things)"
+        return "this can delete or overwrite things"
     if BUY_WORDS & set(words):
-        return f"{what} (this looks like buying or paying)"
-    if SEND_WORDS & set(words):
-        return f"{what} (this sends or shares something)"
+        return "this looks like buying or paying"
+    if SEND_WORDS & set(words) and not (action and READ_WORDS & set(words)):
+        return "this sends or shares something"
+    return None
+
+
+def risk_of(server: str, tool, arguments: dict | None = None) -> str | None:
+    """Words for the Yes / No question, or None when the call looks harmless. The tool's name
+    decides (unless the server says it only reads), and so does any action its arguments name,
+    because a generic execute tool hides the real action there."""
+    hints = getattr(tool, "annotations", None)
+    if not getattr(hints, "readOnlyHint", None):
+        why = _kind(tool.name)
+        if why:
+            return f"use {tool.name.replace('_', ' ')} on {server} ({why})"
+    for action in dict.fromkeys(_actions_in(arguments)):
+        why = _kind(action, action=True)
+        if why:
+            return f"use {' '.join(_words(action))} on {server} ({why})"
     return None
 
 
@@ -253,7 +285,6 @@ class McpHub:
         schema.setdefault("type", "object")
         schema.setdefault("properties", {})
         hints = getattr(item, "annotations", None)
-        risk = risk_of(server, item)
 
         def run(ctx: Ctx, **arguments) -> Outcome:
             ctx.places.add(server)
@@ -263,7 +294,7 @@ class McpHub:
         description = f"[{server}] {(item.description or item.name).strip()}"[:1000]
         return Tool(name, description, {}, run,
                     label=lambda _a, t=item.name, s=server: f"Using {t.replace('_', ' ')} ({s})",
-                    risk=(lambda _c, _a, r=risk: r) if risk else None,
+                    risk=lambda _c, a, i=item, s=server: risk_of(s, i, a),
                     reads_only=bool(getattr(hints, "readOnlyHint", False)),
                     json_schema=schema)
 

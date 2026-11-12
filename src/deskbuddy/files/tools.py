@@ -6,7 +6,7 @@ from pathlib import Path
 from send2trash import send2trash
 
 from deskbuddy.brain.tools import Ctx, Outcome, tool
-from deskbuddy.files.paths import protected, resolve
+from deskbuddy.files.paths import important, protected, resolve
 
 READ_LIMIT = 6000
 PATH = "string: a full path, or a name inside Desktop / Documents / Downloads, e.g. 'Desktop/notes.txt'"
@@ -20,6 +20,16 @@ def _windows_risk(*keys):
         return None
 
     return risk
+
+
+def _refuse(text, verb: str) -> Outcome | None:
+    """Never touch a whole important folder, and never guess when no path was given."""
+    if not str(text or "").strip():
+        return Outcome(False, f"I need to know which file or folder to {verb}, and none was given")
+    target = resolve(text)
+    if important(target):
+        return Outcome(False, f"I won't {verb} your whole {target.name or target} folder")
+    return None
 
 
 def _name(args: dict, key: str = "path") -> str:
@@ -53,6 +63,8 @@ def file_read(ctx: Ctx, path: str) -> Outcome:
       {"path": PATH, "content": "string: the complete text of the file"},
       label=lambda a: f"Writing {_name(a)}", risk=_windows_risk("path"))
 def file_write(ctx: Ctx, path: str, content: str) -> Outcome:
+    if refused := _refuse(path, "overwrite"):
+        return refused
     target = resolve(path)
     if target.is_dir():
         return Outcome(False, f"{target} is a folder, not a file")
@@ -94,6 +106,8 @@ def _destination(source: Path, destination: str) -> Path:
       {"source": PATH, "destination": "string: the new path, or a folder to move it into"},
       label=lambda a: f"Moving {_name(a, 'source')}", risk=_windows_risk("source", "destination"))
 def file_move(ctx: Ctx, source: str, destination: str) -> Outcome:
+    if refused := _refuse(source, "move"):
+        return refused
     src = resolve(source)
     if not src.exists():
         return Outcome(False, f"There is nothing at {src}")
@@ -129,6 +143,8 @@ def file_copy(ctx: Ctx, source: str, destination: str) -> Outcome:
 @tool("file_delete", "Delete a file or folder by sending it to the Recycle Bin.", {"path": PATH},
       label=lambda a: f"Binning {_name(a)}", risk=_windows_risk("path"))
 def file_delete(ctx: Ctx, path: str) -> Outcome:
+    if refused := _refuse(path, "delete"):
+        return refused
     target = resolve(path)
     if not target.exists():
         return Outcome(False, f"There is nothing at {target}")
@@ -141,8 +157,12 @@ def file_delete(ctx: Ctx, path: str) -> Outcome:
 @tool("file_delete_forever", "Delete permanently, skipping the Recycle Bin. Only when the "
       "user clearly asked for permanent deletion.", {"path": PATH},
       label=lambda a: f"Deleting {_name(a)} for good",
-      risk=lambda _c, a: f"delete {resolve(a.get('path', ''))} permanently (this cannot be undone)")
+      # no question when the tool will refuse anyway (an important folder, or no path)
+      risk=lambda _c, a: None if _refuse(a.get("path"), "delete") else
+      f"delete {resolve(a.get('path', ''))} permanently (this cannot be undone)")
 def file_delete_forever(ctx: Ctx, path: str) -> Outcome:
+    if refused := _refuse(path, "delete"):
+        return refused
     target = resolve(path)
     if not target.exists():
         return Outcome(False, f"There is nothing at {target}")

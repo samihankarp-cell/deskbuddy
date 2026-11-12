@@ -63,6 +63,37 @@ def test_risk_wording_by_name_and_hints():
     assert risk_of("x", _Tool("update_thing")) is None
 
 
+META = "COMPOSIO_MULTI_EXECUTE_TOOL"
+
+
+def test_meta_tool_asks_when_arguments_name_a_send():
+    args = {"tools": [{"tool_slug": "GMAIL_SEND_EMAIL", "arguments": {"to": "a@b.c"}}]}
+    assert "gmail send email" in risk_of("composio", _Tool(META), args)
+    assert "sends" in risk_of("composio", _Tool(META), args)
+
+
+def test_meta_tool_with_only_reads_does_not_ask():
+    args = {"tools": [{"tool_slug": "GMAIL_FETCH_EMAILS"}, {"tool_slug": "GMAIL_GET_EMAIL"}]}
+    assert risk_of("composio", _Tool(META), args) is None
+    assert risk_of("composio", _Tool(META), {}) is None
+
+
+def test_single_slug_delete_asks():
+    assert "delete" in risk_of("composio", _Tool("COMPOSIO_EXECUTE_TOOL"), {"tool_slug": "GMAIL_DELETE_MESSAGE"})
+
+
+def test_one_risky_action_among_several_is_named():
+    args = {"tools": [{"tool_slug": "GMAIL_FETCH_EMAILS"}, {"nested": [{"action": "SLACK_SEND_MESSAGE"}]}]}
+    said = risk_of("composio", _Tool(META), args)
+    assert said and "slack send message" in said and "fetch" not in said
+
+
+def test_read_only_hint_does_not_hide_a_risky_action_in_arguments():
+    tool = _Tool(META, readOnlyHint=True)
+    assert risk_of("composio", tool, {}) is None
+    assert "gmail send email" in risk_of("composio", tool, {"tool_slug": "GMAIL_SEND_EMAIL"})
+
+
 def test_stdio_server_end_to_end(tmp_path, monkeypatch):
     monkeypatch.setenv("APPDATA", str(tmp_path))
     hub = McpHub()
@@ -76,7 +107,7 @@ def test_stdio_server_end_to_end(tmp_path, monkeypatch):
         tools = hub.tools()
         assert {"mcp_echo_echo", "mcp_echo_send_email"} <= set(tools)
         assert tools["mcp_echo_send_email"].risk(None, {}) is not None
-        assert tools["mcp_echo_echo"].risk is None
+        assert tools["mcp_echo_echo"].risk(None, {"text": "hi"}) is None
         schema = tools["mcp_echo_echo"].schema()["function"]["parameters"]
         assert schema["required"] == ["text"]
         assert hub.call("echo", "echo", {"text": "hi"}) == (True, "echo: hi")

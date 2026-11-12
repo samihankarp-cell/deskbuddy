@@ -6,9 +6,49 @@ from urllib.parse import quote_plus, urlparse
 
 from deskbuddy.brain.tools import Ctx, Outcome, tool
 
-BUY = re.compile(r"\b(buy|pay|purchase|place (your )?order|check ?out|complete (order|purchase)|subscribe now|order now)\b", re.I)
-SEND = re.compile(r"^\s*(send|post|reply|publish|tweet|submit)\b", re.I)
-SIGN_IN = re.compile(r"\b(sign in|log in|login|signin)\b", re.I)
+
+def _words(latin: list[str], devanagari: list[str] = (), start_only: bool = False) -> re.Pattern:
+    """Word list -> regex. Word boundaries work for Latin scripts but not for Devanagari
+    (combining marks are not word characters), so those alternatives go in without them."""
+    lead = r"^\s*" if start_only else r"\b"
+    parts = [lead + "(" + "|".join(latin) + r")\b"]
+    if devanagari:
+        parts.append((r"^\s*" if start_only else "") + "(" + "|".join(devanagari) + ")")
+    return re.compile("|".join(parts), re.I)
+
+
+BUY = _words([
+    r"buy", r"pay", r"purchase", r"place (your )?order", r"check ?out", r"complete (order|purchase)",
+    r"subscribe now", r"order now",
+    r"comprar", r"pagar", r"realizar pedido", r"finalizar compra", r"pagar ahora",                # es / pt
+    r"acheter", r"payer", r"commander", r"passer la commande", r"valider (la |ma )?commande",      # fr
+    r"kaufen", r"jetzt kaufen", r"bezahlen", r"zur kasse", r"zahlungspflichtig bestellen",         # de
+    r"comprar agora", r"finalizar pedido",
+    r"acquista", r"compra", r"paga", r"ordina", r"procedi al pagamento",                           # it
+], ["खरीदें", "खरीदे", "भुगतान", "ऑर्डर करें"])
+SEND = _words([
+    r"send", r"post", r"reply", r"publish", r"tweet", r"submit",
+    r"enviar", r"responder", r"publicar",                                                          # es / pt
+    r"envoyer", r"répondre", r"publier", r"soumettre",                                             # fr
+    r"senden", r"absenden", r"antworten", r"veröffentlichen", r"abschicken",                       # de
+    r"invia", r"rispondi", r"pubblica",                                                            # it
+], ["भेजें", "भेजे", "जमा करें"], start_only=True)
+DELETE = _words([
+    r"delete", r"remove", r"erase", r"discard", r"close account", r"deactivate",
+    r"empty (the )?(trash|bin)", r"uninstall",
+    r"eliminar", r"borrar", r"quitar", r"cerrar (la )?cuenta", r"desactivar", r"vaciar (la )?papelera",   # es
+    r"excluir", r"apagar", r"remover", r"encerrar conta", r"esvaziar (a )?lixeira",                       # pt
+    r"supprimer", r"effacer", r"retirer", r"fermer (le |mon )?compte", r"désactiver", r"vider (la )?corbeille",  # fr
+    r"löschen", r"entfernen", r"konto schließen", r"deaktivieren", r"papierkorb leeren",            # de
+    r"elimina", r"cancella", r"rimuovi", r"chiudi (l')?account", r"disattiva", r"svuota (il )?cestino",  # it
+], ["हटाएं", "हटाएँ", "हटाये", "मिटाएं", "मिटाएँ", "डिलीट"])
+SIGN_IN = _words([
+    r"sign in", r"log in", r"login", r"signin",
+    r"iniciar sesión", r"inicia sesión", r"acceder", r"entrar", r"iniciar sessão", r"fazer login",  # es / pt
+    r"se connecter", r"connexion", r"identifiez-vous",                                               # fr
+    r"anmelden", r"einloggen", r"anmeldung",                                                         # de
+    r"accedi", r"accesso",                                                                           # it
+], ["साइन इन", "लॉग इन", "लॉगिन"])
 NO_ADDON = ("The Desk Buddy add-on is not connected in the open browser, so I cannot work inside "
             "its pages. give_up and say the add-on needs to be installed (see the addon folder).")
 
@@ -88,6 +128,7 @@ def browser_search(ctx: Ctx, query: str, new_window: bool = False) -> Outcome:
 def browser_look(ctx: Ctx) -> Outcome:
     page = ctx.bridge.call("look", tabId=_tab(ctx))
     ctx.elements = {e["id"]: e for e in page["elements"]}
+    ctx.look_token = page.get("token", "")
     lines = []
     for e in page["elements"]:
         kind = e["tag"] + (f":{e['type']}" if e["type"] and e["type"] != e["tag"] else "")
@@ -107,9 +148,33 @@ def _click_risk(ctx: Ctx, args: dict) -> str | None:
         return f"press \"{element['text'] or element['label']}\" (this looks like buying something)"
     if SEND.search(element["text"]) or SEND.search(element["label"]):
         return f"press \"{element['text'] or element['label']}\" (this sends something)"
+    if DELETE.search(text):
+        return f"press \"{element['text'] or element['label']}\" (this deletes something)"
     if SIGN_IN.search(text):
         return f"press \"{element['text'] or element['label']}\" (this signs in)"
     return None
+
+
+SEARCHISH = re.compile(r"search|find|query|buscar|recherch|suche|cerca|pesquis|खोज", re.I)
+
+
+def _is_search_box(element: dict) -> bool:
+    if (element.get("type") or "").lower() in ("search", "searchbox"):
+        return True
+    label = (element.get("label") or "").strip().lower()
+    return label == "q" or bool(SEARCHISH.search(f"{element.get('text') or ''} {label}"))
+
+
+def _type_risk(ctx: Ctx, args: dict) -> str | None:
+    """Enter submits forms and sends chat messages, so ask, except in a search box."""
+    if not args.get("press_enter"):
+        return None
+    element = ctx.elements.get(args.get("id"))
+    if not element or _is_search_box(element):
+        return None
+    name = element["label"] or element["text"] or "the box"
+    return (f"type \"{str(args.get('text', ''))[:60]}\" and press Enter in \"{name}\" "
+            "(this can send or submit something)")
 
 
 def _snapshot(ctx: Ctx) -> str:
@@ -128,7 +193,7 @@ def browser_click(ctx: Ctx, id: int) -> Outcome:
     name = element["text"] or element["label"] or "it"
     ctx.step(f"Clicking {name[:40]}")
     before = _snapshot(ctx)
-    result = ctx.bridge.call("click", tabId=_tab(ctx), id=id)
+    result = ctx.bridge.call("click", tabId=_tab(ctx), id=id, token=ctx.look_token)
     if result.get("newTab"):
         ctx.tab_id = result["tabId"]
     _place(ctx, result.get("url", ""))
@@ -141,7 +206,7 @@ def browser_click(ctx: Ctx, id: int) -> Outcome:
       "was there. For a dropdown, gives the option to choose.",
       {"id": "integer: the element number", "text": "string: what to type",
        "press_enter?": "boolean: press Enter afterwards"},
-      label=lambda a: f"Typing {a.get('text', '')[:30]}")
+      label=lambda a: f"Typing {a.get('text', '')[:30]}", risk=_type_risk)
 @_needs_addon
 def browser_type(ctx: Ctx, id: int, text: str, press_enter: bool = False) -> Outcome:
     element = ctx.elements.get(id)
@@ -150,7 +215,8 @@ def browser_type(ctx: Ctx, id: int, text: str, press_enter: bool = False) -> Out
     if element["type"] == "password":
         return Outcome(False, "That is a password box. I never type passwords. give_up and "
                        "tell the user the page is waiting for their password.")
-    result = ctx.bridge.call("type", tabId=_tab(ctx), id=id, text=text, enter=bool(press_enter))
+    result = ctx.bridge.call("type", tabId=_tab(ctx), id=id, text=text, enter=bool(press_enter),
+                             token=ctx.look_token)
     held = text.strip().lower() in str(result.get("value", "")).lower()
     tail = f" Pressed Enter. {_where(result)}." if press_enter else ""
     return Outcome(held, (f"The box now holds \"{result.get('value', '')[:80]}\"." if held

@@ -140,8 +140,31 @@ def app_look(ctx: Ctx) -> Outcome:
     return Outcome(True, f"Window \"{title}\":\n" + "\n".join(lines), verified=True)
 
 
+CLICK_RISKS = (
+    (re.compile(r"\b(delete|remove|erase|discard|uninstall|empty recycle bin)\b", re.I),
+     "this deletes something"),
+    (re.compile(r"\b(send|post|reply|reply all|forward|publish|submit)\b", re.I), "this sends something"),
+    (re.compile(r"\b(buy|pay|purchase|place order|checkout|check out|subscribe)\b", re.I),
+     "this spends money"),
+    (re.compile(r"\b(sign in|log in|login)\b", re.I), "this signs in"),
+)
+
+
+def _app_click_risk(ctx: Ctx, args: dict) -> str | None:
+    try:
+        info = ctx.controls.get(args["id"]).element_info
+        name = (info.name or "").strip()
+    except Exception:
+        return None  # unknown control: the tool itself will fail
+    for pattern, why in CLICK_RISKS:
+        if name and pattern.search(name):
+            return f'press "{name[:40]}" ({why})'
+    return None
+
+
 @tool("app_click", "Click a control by its number from app_look, with the real mouse.",
-      {"id": "integer: the control number"}, label=lambda a: "Clicking", physical=True)
+      {"id": "integer: the control number"}, label=lambda a: "Clicking", physical=True,
+      risk=_app_click_risk)
 def app_click(ctx: Ctx, id: int) -> Outcome:
     _com()
     control = ctx.controls.get(id)
@@ -163,6 +186,17 @@ def _focus(ctx: Ctx) -> None:
         pass
 
 
+def _focused_is_password() -> bool:
+    """True if the control that has keyboard focus is a password box (UI Automation IsPassword)."""
+    try:
+        _com()
+        from pywinauto.uia_defines import IUIA
+
+        return bool(IUIA().iuia.GetFocusedElement().CurrentIsPassword)
+    except Exception:
+        return False
+
+
 @tool("app_type", "Type text with the real keyboard into the app (into whatever has focus; "
       "click a box first if needed).", {"text": "string: what to type"},
       label=lambda a: f"Typing {a.get('text', '')[:30]}", physical=True)
@@ -171,6 +205,9 @@ def app_type(ctx: Ctx, text: str) -> Outcome:
 
     ctx.used_app = True
     _focus(ctx)
+    if _focused_is_password():
+        return Outcome(False, "That is a password box. I never type passwords. give_up and tell the "
+                       "user the app is waiting for their password.")
     keyboard.write(text, delay=0.012)
     time.sleep(0.3)
     shown = text.strip()[:40].lower() in window_text(ctx, 4000).lower()
@@ -178,15 +215,34 @@ def app_type(ctx: Ctx, text: str) -> Outcome:
                    else "Typed it, but I cannot see that text in the window.", verified=shown)
 
 
+def _normalise_keys(keys: str) -> str:
+    """'Ctrl + Page Down' -> 'ctrl+page down' (key names with spaces must keep them)."""
+    return "+".join(part.strip().lower() for part in keys.split("+"))
+
+
+SEND_DELETE_KEYS = {frozenset(c.split("+")) for c in ("ctrl+enter", "alt+s", "shift+delete", "shift+del")}
+WIN_KEYS = {"win", "windows", "left windows", "right windows", "left win", "right win"}
+
+
+def _app_keys_risk(_ctx, args: dict) -> str | None:
+    parts = frozenset(p for p in _normalise_keys(str(args.get("keys", ""))).split("+") if p)
+    shown = args.get("keys", "")
+    if parts in SEND_DELETE_KEYS:
+        return f"press {shown} (this can send or permanently delete something)"
+    if parts & WIN_KEYS:
+        return f"press {shown} (this can change Windows settings)"
+    return None
+
+
 @tool("app_keys", "Press a key or shortcut in the app, e.g. enter, ctrl+s, alt+f4, tab.",
       {"keys": "string: the key or shortcut"},
-      label=lambda a: f"Pressing {a.get('keys', '')}", physical=True)
+      label=lambda a: f"Pressing {a.get('keys', '')}", physical=True, risk=_app_keys_risk)
 def app_keys(ctx: Ctx, keys: str) -> Outcome:
     import keyboard
 
     ctx.used_app = True
     _focus(ctx)
-    keyboard.send(keys.lower().replace(" ", ""))
+    keyboard.send(_normalise_keys(keys))
     time.sleep(0.5)
     return Outcome(True, f"Pressed {keys}. The window in front is now \"{win.foreground_title()}\".")
 
@@ -194,12 +250,23 @@ def app_keys(ctx: Ctx, keys: str) -> Outcome:
 def _screenshot(ctx: Ctx):
     import pyautogui
 
-    image = pyautogui.screenshot()
+    image, ctx.screen_origin = None, (0, 0)
+    try:  # only the job's window, so other windows (e.g. a password manager) never leave the PC
+        rect = _target(ctx).rectangle()
+        left, top = max(rect.left, 0), max(rect.top, 0)
+        width, height = rect.right - left, rect.bottom - top
+        if width > 50 and height > 50:
+            image = pyautogui.screenshot(region=(left, top, width, height))
+            ctx.screen_origin = (left, top)
+    except Exception:
+        image = None
+    if image is None:
+        image, ctx.screen_origin = pyautogui.screenshot(), (0, 0)
     ctx.screen_scale = image.width / SCREEN_WIDTH
     return image.resize((SCREEN_WIDTH, int(image.height / ctx.screen_scale)))
 
 
-@tool("screen_look", "Look at the whole screen with vision and answer a question about it, "
+@tool("screen_look", "Look at the app window (or the screen if none) with vision and answer a question about it, "
       "for apps that app_look cannot see into. Ask for the x,y of things you need to click.",
       {"question": "string: what you want to know or find on screen"},
       label=lambda a: "Looking at the screen", reads_only=True)
@@ -229,7 +296,10 @@ def screen_click(ctx: Ctx, x: int, y: int) -> Outcome:
     scale = getattr(ctx, "screen_scale", None)
     if scale is None:
         return Outcome(False, "Call screen_look first so I know where things are.")
-    pyautogui.click(int(x * scale), int(y * scale))
+    # No risk check here: a bare x,y has no control name to judge. Only screen_look's window
+    # is ever shown to the model, and app_click/app_keys cover the named-control cases.
+    left, top = getattr(ctx, "screen_origin", (0, 0))
+    pyautogui.click(int(x * scale) + left, int(y * scale) + top)
     time.sleep(0.6)
     return Outcome(True, f"Clicked at {x},{y}. The window in front is now "
                    f"\"{win.foreground_title()}\". Use screen_look to see the result.")

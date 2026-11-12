@@ -25,7 +25,7 @@ class Bridge:
         self._loop = asyncio.new_event_loop()
         self._clients: dict = {}      # connection -> browser name
         self._current = None          # the browser used most recently
-        self._pending: dict[int, concurrent.futures.Future] = {}
+        self._pending: dict[int, tuple] = {}  # id -> (connection asked, future)
         self._ids = itertools.count(1)
         self.start_error: str | None = None
 
@@ -50,7 +50,12 @@ class Bridge:
             return
         try:
             async for raw in ws:
-                msg = json.loads(raw)
+                try:
+                    msg = json.loads(raw)
+                except ValueError:
+                    continue
+                if not isinstance(msg, dict):
+                    continue
                 if "hello" in msg:
                     name = str(msg["hello"])
                     if origin in self._refused:
@@ -69,12 +74,17 @@ class Bridge:
                             self._paired_file.write_text(json.dumps(sorted(self._paired)))
                     self._clients[ws] = name
                     self._current = ws
-                elif "active" in msg and ws in self._clients:
+                elif ws not in self._clients:
+                    continue  # never said hello / not approved: ignore everything else
+                elif "active" in msg:
                     self._current = ws
                 elif "id" in msg:
-                    future = self._pending.pop(msg["id"], None)
-                    if future and not future.done():
-                        future.set_result(msg)
+                    entry = self._pending.get(msg["id"]) if isinstance(msg["id"], int) else None
+                    # only the connection the request went to may answer it
+                    if entry and entry[0] is ws:
+                        self._pending.pop(msg["id"], None)
+                        if not entry[1].done():
+                            entry[1].set_result(msg)
         finally:
             self._clients.pop(ws, None)
             if self._current is ws:
@@ -95,10 +105,17 @@ class Bridge:
             raise BridgeError("the Desk Buddy add-on is not connected in your browser")
         msg_id = next(self._ids)
         future: concurrent.futures.Future = concurrent.futures.Future()
-        self._pending[msg_id] = future
+        self._pending[msg_id] = (ws, future)
         payload = json.dumps({"id": msg_id, "method": method, "params": params})
-        asyncio.run_coroutine_threadsafe(ws.send(payload), self._loop)
+        sent = asyncio.run_coroutine_threadsafe(ws.send(payload), self._loop)
         try:
+            try:
+                sent.result(min(2, timeout))  # a closed socket fails here, so don't wait it out
+            except concurrent.futures.TimeoutError:
+                pass
+            except Exception:
+                self._pending.pop(msg_id, None)
+                raise BridgeError("the browser connection closed") from None
             reply = future.result(timeout)
         except concurrent.futures.TimeoutError:
             self._pending.pop(msg_id, None)

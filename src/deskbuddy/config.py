@@ -76,6 +76,9 @@ def _build() -> Settings:
         port = int(env("DESKBUDDY_WS_PORT", "8765") or "8765")
     except ValueError:
         port = 8765
+    # The add-on can't read this .env, so it tries 8765-8769 in turn; any other port would be unreachable.
+    if not 8765 <= port <= 8769:
+        port = 8765
     return Settings(
         provider=provider.key,
         base_url=base_url,

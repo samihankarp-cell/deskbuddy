@@ -3,11 +3,12 @@ pressed), MCP servers (added and removed live) and alert switches (saved in memo
 import os
 from pathlib import Path
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import QUrl, Signal
+from PySide6.QtGui import QDesktopServices
 from PySide6.QtWidgets import (QFrame, QGridLayout, QHBoxLayout, QLabel, QMenu, QPushButton,
                                QVBoxLayout)
 
-from deskbuddy import alerts, providers
+from deskbuddy import alerts, log, providers
 from deskbuddy.ui.hub import styles
 from deskbuddy.ui.hub.key_capture import KeyCapture
 from deskbuddy.ui.hub.look_picker import LookPicker
@@ -135,6 +136,8 @@ class SettingsPage(Page):
         self.cards.append(frame)
 
         bar = QHBoxLayout()
+        self.logs_button = button("Open logs folder", "quiet", self.open_logs)
+        bar.addWidget(self.logs_button)
         self.saved = QLabel("")
         self.saved.setObjectName("saved")
         bar.addWidget(self.saved, 1)
@@ -310,6 +313,10 @@ class SettingsPage(Page):
         os.environ[HOTKEY_ENV] = name   # later screens (and a restart-free reload) read the same key
         self._say(f"Saved. Hold {keys.friendly(name)} to talk.", True)
         self.hotkey_changed.emit(name)
+
+    def open_logs(self) -> None:
+        """Show the folder holding deskbuddy.log in Explorer (handy when sending a bug report)."""
+        QDesktopServices.openUrl(QUrl.fromLocalFile(str(log.folder())))
 
     def _unsaved(self, _value: str = "") -> None:
         self.saved.setText("")
