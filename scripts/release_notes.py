@@ -15,7 +15,10 @@ INSTALL = """\
 2. Run `DeskBuddy.exe`. It is not code-signed yet, so Windows SmartScreen may warn you:
    choose **More info**, then **Run anyway**. The `.sha256` file lets you check the download.
 3. Double-click the robot, open **Settings**, pick your AI provider, paste your key and press **Save**.
-4. Load the browser add-on from the `addon` folder next to the exe (Developer mode, "Load unpacked").
+4. Load the browser add-on from the `addon` folder next to the exe: in Chrome go to `chrome://extensions`,
+   turn on **Developer mode**, click **Load unpacked**, pick that folder, then click **Yes** when the robot asks.
+   The [add-on guide](https://github.com/samihankarp-cell/deskbuddy/blob/main/addon/README.md) covers Edge,
+   Brave, Comet and Firefox, updating, and troubleshooting.
 
 Developers can run from source instead: see the [README](https://github.com/samihankarp-cell/deskbuddy#quick-start).
 """

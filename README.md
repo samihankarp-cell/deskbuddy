@@ -78,10 +78,13 @@ uv run deskbuddy
 The first start takes a while (the AI libraries load, and the first voice use downloads the speech model). Then:
 
 1. **Add your AI key.** Double-click the robot to open the dashboard, go to **Settings**, pick a provider, paste your key and press **Save**. It applies at once. You can also copy `.env.example` to `.env` and fill it in.
-2. **Load the browser add-on**, once per browser:
-   - **Chrome, Edge, Brave, Comet:** open the extensions page, turn on Developer mode, click "Load unpacked" and pick the `addon` folder.
-   - **Firefox:** open `about:debugging`, "This Firefox", "Load Temporary Add-on", and pick `addon/manifest.json`. Firefox forgets it on restart.
-   - The first time the add-on connects, Desk Buddy asks you to allow it.
+2. **Load the browser add-on**, once per browser. It isn't in the extension stores yet, so you load it from the `addon` folder (in the project, or next to `DeskBuddy.exe` in the release zip). In Chrome:
+   1. Go to `chrome://extensions` and turn on **Developer mode** (top right).
+   2. Click **Load unpacked** and pick the `addon` folder, the one that contains `manifest.json`.
+   3. When the robot asks *"Let the Desk Buddy add-on in Chrome connect to me?"*, click **Yes**.
+   4. Test it: type **"open wikipedia"**.
+
+   **[Full add-on guide](addon/README.md)**: Edge, Brave, Comet and Firefox steps, updating, permissions, and troubleshooting.
 3. **Talk or type.** Hold **Right Ctrl** and speak, or click the robot to type. **Esc** stops it. Change the talk key in Settings.
 
 The dashboard (double-click the robot, or use the tray icon) holds updates, activity, reminders, memory, connectors and settings. Ctrl+K searches, and Ctrl+1 to 6 switch sections.
@@ -141,7 +144,7 @@ Page text, and for some apps a screenshot of that app's window, go to the AI pro
 
 ## Troubleshooting
 
-- **The add-on does not connect.** Check that it is loaded and that you allowed it when Desk Buddy asked. The add-on tries ports 8765 to 8769, so keep the port in Settings inside that range.
+- **The add-on does not connect.** Check that it is loaded and switched on, and that you clicked Yes when Desk Buddy asked (clicked No? restart Desk Buddy and it asks again). The add-on tries ports 8765 to 8769, so keep the port in Settings inside that range. More in the [add-on guide](addon/README.md#troubleshooting).
 - **"The AI key was rejected."** The key, address or model doesn't match your provider. Paste the key again, check the address, and press **Save**.
 - **The first voice use is slow.** The speech model downloads the first time you talk.
 - **An MCP server fails.** Its own output is in `%APPDATA%\DeskBuddy\mcp-<name>.log`.
