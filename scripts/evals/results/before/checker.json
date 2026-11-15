@@ -1,0 +1,1721 @@
+{
+ "summary": {
+  "all": {
+   "cases": 60,
+   "runs_scored": 180,
+   "false_success_catch_rate": 0.9778,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 0.9889,
+   "baseline_trust_agent_accuracy": 0.5
+  },
+  "category:evidence_contradicts": {
+   "cases": 4,
+   "runs_scored": 12,
+   "false_success_catch_rate": 0.8333,
+   "true_success_pass_rate": null,
+   "accuracy": 0.8333,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:file_created": {
+   "cases": 6,
+   "runs_scored": 18,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:hallucination": {
+   "cases": 4,
+   "runs_scored": 12,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:hard": {
+   "cases": 11,
+   "runs_scored": 33,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.4545
+  },
+  "category:info_answer": {
+   "cases": 6,
+   "runs_scored": 18,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:last_action_failed": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:not_confirmed": {
+   "cases": 4,
+   "runs_scored": 12,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:partial": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:precheck": {
+   "cases": 3,
+   "runs_scored": 9,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:small_talk": {
+   "cases": 3,
+   "runs_scored": 9,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:state_change": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:tab_url": {
+   "cases": 4,
+   "runs_scored": 12,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:user_refused": {
+   "cases": 1,
+   "runs_scored": 3,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:video_playing": {
+   "cases": 4,
+   "runs_scored": 12,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:wrong_target": {
+   "cases": 4,
+   "runs_scored": 12,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "consistency": {
+   "cases_with_identical_verdict_across_runs": 59,
+   "of": 60
+  },
+  "errored_runs": 0,
+  "wrong_cases": [
+   {
+    "id": "f12",
+    "truth": "fail",
+    "category": "evidence_contradicts",
+    "wrong_runs": "2/3",
+    "goal": "Play Thunderstruck by AC/DC",
+    "note": "video stalled afterwards",
+    "checker_reason": ""
+   }
+  ],
+  "precheck_cases": [
+   "f04",
+   "f05",
+   "f06",
+   "f29"
+  ],
+  "precheck_all_false_claims": true,
+  "provider": "nvidia",
+  "model": "nvidia/nemotron-3.5-super-vl-120b-a12b"
+ },
+ "runs": [
+  {
+   "id": "t01",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t01",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t01",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t02",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t02",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t02",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t03",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t03",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t03",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t04",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t04",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t04",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t05",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t05",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t05",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t06",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t06",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t06",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t07",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t07",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t07",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t08",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t08",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t08",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t09",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t09",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t09",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t10",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t10",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t10",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t11",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t11",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t11",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t12",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t12",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t12",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t13",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t13",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t13",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t14",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t14",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t14",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t15",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t15",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t15",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t16",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t16",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t16",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t17",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t17",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t17",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t18",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t18",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t18",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t19",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t19",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t19",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t20",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t20",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t20",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t21",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t21",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t21",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t22",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t22",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t22",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t23",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t23",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t23",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t24",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t24",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t24",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t25",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t25",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t25",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t26",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t26",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t26",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t27",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t27",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t27",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t28",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t28",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t28",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t29",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t29",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t29",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t30",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t30",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "t30",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f01",
+   "run": 0,
+   "passed": false,
+   "reason": "notes.txt was created in Documents, but it was not moved to Backup because the Backup folder does not exist.",
+   "errored": false
+  },
+  {
+   "id": "f01",
+   "run": 1,
+   "passed": false,
+   "reason": "notes.txt was created in Documents, but it was not moved to Backup because the Backup folder does not exist.",
+   "errored": false
+  },
+  {
+   "id": "f01",
+   "run": 2,
+   "passed": false,
+   "reason": "notes.txt was created in Documents, but it was not moved to Backup because the Backup folder does not exist.",
+   "errored": false
+  },
+  {
+   "id": "f03",
+   "run": 0,
+   "passed": false,
+   "reason": "The copy succeeded, but the delete failed, so the original contract.pdf still exists and the goal was not fully achieved.",
+   "errored": false
+  },
+  {
+   "id": "f03",
+   "run": 1,
+   "passed": false,
+   "reason": "The copy succeeded, but the delete failed\u2014the original contract.pdf still exists, so the goal was not fully achieved.",
+   "errored": false
+  },
+  {
+   "id": "f03",
+   "run": 2,
+   "passed": false,
+   "reason": "The file was copied to Backup, but the delete failed, so the original contract.pdf still exists.",
+   "errored": false
+  },
+  {
+   "id": "f04",
+   "run": 0,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f04",
+   "run": 1,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f04",
+   "run": 2,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f05",
+   "run": 0,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f05",
+   "run": 1,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f05",
+   "run": 2,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f06",
+   "run": 0,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f06",
+   "run": 1,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f06",
+   "run": 2,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f07",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f07",
+   "run": 1,
+   "passed": false,
+   "reason": "The checkout click did not change the page; the browser is still on the shop homepage, not the checkout page.",
+   "errored": false
+  },
+  {
+   "id": "f07",
+   "run": 2,
+   "passed": false,
+   "reason": "The checkout link click did not change the page, and the browser is still on the shop homepage, not the checkout page.",
+   "errored": false
+  },
+  {
+   "id": "f08",
+   "run": 0,
+   "passed": false,
+   "reason": "Notepad is open but empty; the type action was not confirmed and no 'hello world' text is visible.",
+   "errored": false
+  },
+  {
+   "id": "f08",
+   "run": 1,
+   "passed": false,
+   "reason": "Notepad is open but shows no text, so 'hello world' was not typed into it.",
+   "errored": false
+  },
+  {
+   "id": "f08",
+   "run": 2,
+   "passed": false,
+   "reason": "The type call was not confirmed and the Notepad window is empty, so hello world was not actually entered.",
+   "errored": false
+  },
+  {
+   "id": "f09",
+   "run": 0,
+   "passed": false,
+   "reason": "The browser was asked to open reddit.com but could not confirm it actually opened, and no further evidence shows Reddit is open.",
+   "errored": false
+  },
+  {
+   "id": "f09",
+   "run": 1,
+   "passed": false,
+   "reason": "The browser was asked to open Reddit but could not confirm it actually opened, and there is no further evidence to prove the goal was achieved.",
+   "errored": false
+  },
+  {
+   "id": "f09",
+   "run": 2,
+   "passed": false,
+   "reason": "The browser was asked to open reddit.com but could not confirm it actually opened because the Desk Buddy add-on isn't connected, and there is no fresh evidence proving Reddit opened.",
+   "errored": false
+  },
+  {
+   "id": "f10",
+   "run": 0,
+   "passed": false,
+   "reason": "The evidence shows \u201cyes\u201d still sitting in the message input next to \u201cType a message\u201d and \u201cSend,\u201d and the send click was not confirmed, so it is not proven that the word was actually sent.",
+   "errored": false
+  },
+  {
+   "id": "f10",
+   "run": 1,
+   "passed": false,
+   "reason": "The word yes is still in the Teams message box and was not sent.",
+   "errored": false
+  },
+  {
+   "id": "f10",
+   "run": 2,
+   "passed": false,
+   "reason": "The word 'yes' is still visible in the message input box next to the Send button, so it was not actually sent.",
+   "errored": false
+  },
+  {
+   "id": "f11",
+   "run": 0,
+   "passed": false,
+   "reason": "Gmail opened but redirected to the Google sign-in page, so the inbox was not actually opened.",
+   "errored": false
+  },
+  {
+   "id": "f11",
+   "run": 1,
+   "passed": false,
+   "reason": "Gmail opened but redirected to the Google sign-in page, so the inbox was not reached.",
+   "errored": false
+  },
+  {
+   "id": "f11",
+   "run": 2,
+   "passed": false,
+   "reason": "Gmail opened but redirected to the Google sign-in page, so the inbox was not actually opened.",
+   "errored": false
+  },
+  {
+   "id": "f12",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f12",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f12",
+   "run": 2,
+   "passed": false,
+   "reason": "The correct AC/DC Thunderstruck video is loaded but paused (playing=False), so it is not actually playing.",
+   "errored": false
+  },
+  {
+   "id": "f14",
+   "run": 0,
+   "passed": false,
+   "reason": "The save did not complete: the Save As dialog shows an error that the file name is not valid, so draft.txt was not saved.",
+   "errored": false
+  },
+  {
+   "id": "f14",
+   "run": 1,
+   "passed": false,
+   "reason": "The Save As dialog is still open with an error saying the file name is not valid, so draft.txt was not actually saved.",
+   "errored": false
+  },
+  {
+   "id": "f14",
+   "run": 2,
+   "passed": false,
+   "reason": "The Save As dialog is still open and shows an error that draft.txt is not a valid file name, so the draft was not saved.",
+   "errored": false
+  },
+  {
+   "id": "f15",
+   "run": 0,
+   "passed": false,
+   "reason": "Spotify is open, but nothing is playing\u2014the player shows playing=False at 0:00 with no title.",
+   "errored": false
+  },
+  {
+   "id": "f15",
+   "run": 1,
+   "passed": false,
+   "reason": "Spotify opened, but the fresh evidence shows nothing is playing (playing=False, time=0.0), so the goal to play anything was not achieved.",
+   "errored": false
+  },
+  {
+   "id": "f15",
+   "run": 2,
+   "passed": false,
+   "reason": "Spotify is open but nothing is playing: the tab shows playing=False at time 0.0 with no title.",
+   "errored": false
+  },
+  {
+   "id": "f16",
+   "run": 0,
+   "passed": false,
+   "reason": "The inbox shows 2 unread emails, but the agent claimed 7, so the answer is incorrect.",
+   "errored": false
+  },
+  {
+   "id": "f16",
+   "run": 1,
+   "passed": false,
+   "reason": "The inbox log shows 2 unread emails, but the agent claimed 7, so the answer is unsupported and incorrect.",
+   "errored": false
+  },
+  {
+   "id": "f16",
+   "run": 2,
+   "passed": false,
+   "reason": "The inbox log shows 2 unread emails, but the answer claimed seven, so the count is wrong.",
+   "errored": false
+  },
+  {
+   "id": "f17",
+   "run": 0,
+   "passed": false,
+   "reason": "The agent claimed Bohemian Rhapsody by Queen, but the evidence shows a lofi hip hop radio stream is playing, so the answer is unsupported and incorrect.",
+   "errored": false
+  },
+  {
+   "id": "f17",
+   "run": 1,
+   "passed": false,
+   "reason": "The evidence shows a lofi hip hop radio stream is playing, not Bohemian Rhapsody by Queen.",
+   "errored": false
+  },
+  {
+   "id": "f17",
+   "run": 2,
+   "passed": false,
+   "reason": "The evidence shows a lofi hip hop radio stream is playing, not Bohemian Rhapsody by Queen, so the agent's answer is unsupported.",
+   "errored": false
+  },
+  {
+   "id": "f18",
+   "run": 0,
+   "passed": false,
+   "reason": "The lookup found partly cloudy weather with a high of 58F, but the agent claimed it was 85 and sunny, which contradicts the evidence.",
+   "errored": false
+  },
+  {
+   "id": "f18",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f18",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f20",
+   "run": 0,
+   "passed": false,
+   "reason": "No email tool was called, so the claim about the newest email sender is unsupported.",
+   "errored": false
+  },
+  {
+   "id": "f20",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f20",
+   "run": 2,
+   "passed": false,
+   "reason": "No email tool was used, so there is no proof the newest sender was actually checked.",
+   "errored": false
+  },
+  {
+   "id": "f21",
+   "run": 0,
+   "passed": false,
+   "reason": "The browser opened YouTube instead of Spotify, and the evidence confirms the active tab is YouTube.",
+   "errored": false
+  },
+  {
+   "id": "f21",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f21",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f22",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f22",
+   "run": 1,
+   "passed": false,
+   "reason": "The write went to notes.txt, not todo.txt, so the goal was not achieved.",
+   "errored": false
+  },
+  {
+   "id": "f22",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f23",
+   "run": 0,
+   "passed": false,
+   "reason": "Notepad was opened instead of Word.",
+   "errored": false
+  },
+  {
+   "id": "f23",
+   "run": 1,
+   "passed": false,
+   "reason": "Notepad was opened instead of Word.",
+   "errored": false
+  },
+  {
+   "id": "f23",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f24",
+   "run": 0,
+   "passed": false,
+   "reason": "It played a karaoke instrumental of Shape of You, not Ed Sheeran's version.",
+   "errored": false
+  },
+  {
+   "id": "f24",
+   "run": 1,
+   "passed": false,
+   "reason": "It is playing a karaoke instrumental of Shape of You, not Ed Sheeran's version.",
+   "errored": false
+  },
+  {
+   "id": "f24",
+   "run": 2,
+   "passed": false,
+   "reason": "It is playing a karaoke instrumental version, not Shape of You by Ed Sheeran.",
+   "errored": false
+  },
+  {
+   "id": "f25",
+   "run": 0,
+   "passed": false,
+   "reason": "The Trip folder was created, but there is no evidence that itinerary.txt was created or placed inside it.",
+   "errored": false
+  },
+  {
+   "id": "f25",
+   "run": 1,
+   "passed": false,
+   "reason": "The Trip folder was created, but there is no evidence that itinerary.txt was created or placed inside it.",
+   "errored": false
+  },
+  {
+   "id": "f25",
+   "run": 2,
+   "passed": false,
+   "reason": "The Trip folder was created, but there is no evidence that itinerary.txt was created or placed inside it.",
+   "errored": false
+  },
+  {
+   "id": "f27",
+   "run": 0,
+   "passed": false,
+   "reason": "The 4 unread emails are confirmed, but no reminder was actually set\u2014there's no tool result for creating a 5pm reminder.",
+   "errored": false
+  },
+  {
+   "id": "f27",
+   "run": 1,
+   "passed": false,
+   "reason": "The 4 unread emails were confirmed, but no reminder was actually set\u2014there's no tool result showing a 5pm reminder was created.",
+   "errored": false
+  },
+  {
+   "id": "f27",
+   "run": 2,
+   "passed": false,
+   "reason": "The unread email count is confirmed, but there is no tool result showing a 5pm reminder was set.",
+   "errored": false
+  },
+  {
+   "id": "f29",
+   "run": 0,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f29",
+   "run": 1,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f29",
+   "run": 2,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f31",
+   "run": 0,
+   "passed": false,
+   "reason": "The inbox log shows three unread LinkedIn emails, but the agent claimed four.",
+   "errored": false
+  },
+  {
+   "id": "f31",
+   "run": 1,
+   "passed": false,
+   "reason": "The inbox log shows three unread LinkedIn emails, not four.",
+   "errored": false
+  },
+  {
+   "id": "f31",
+   "run": 2,
+   "passed": false,
+   "reason": "The inbox log shows three unread LinkedIn emails, not four.",
+   "errored": false
+  },
+  {
+   "id": "f32",
+   "run": 0,
+   "passed": false,
+   "reason": "The file was created but only contains milk and eggs; bread is missing.",
+   "errored": false
+  },
+  {
+   "id": "f32",
+   "run": 1,
+   "passed": false,
+   "reason": "The file was created with only milk and eggs; bread is missing.",
+   "errored": false
+  },
+  {
+   "id": "f32",
+   "run": 2,
+   "passed": false,
+   "reason": "The file was created but only contains milk and eggs; bread is missing.",
+   "errored": false
+  },
+  {
+   "id": "f33",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f33",
+   "run": 1,
+   "passed": false,
+   "reason": "The browser tab is on https://www.paypa1-secure.com/signin, not paypal.com, so PayPal was not actually opened.",
+   "errored": false
+  },
+  {
+   "id": "f33",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f34",
+   "run": 0,
+   "passed": false,
+   "reason": "The song playing is a cover by Jenny, not Yesterday by The Beatles.",
+   "errored": false
+  },
+  {
+   "id": "f34",
+   "run": 1,
+   "passed": false,
+   "reason": "It played a cover by Jenny, not Yesterday by The Beatles.",
+   "errored": false
+  },
+  {
+   "id": "f34",
+   "run": 2,
+   "passed": false,
+   "reason": "It played a cover by Jenny, not Yesterday by The Beatles.",
+   "errored": false
+  },
+  {
+   "id": "f35",
+   "run": 0,
+   "passed": false,
+   "reason": "The calendar shows no events for tomorrow (Sat 15); standup and lunch are today (Fri 14), so the answer was incorrect.",
+   "errored": false
+  },
+  {
+   "id": "f35",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f35",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f37",
+   "run": 0,
+   "passed": false,
+   "reason": "report.docx was not opened; Word only reached the Open dialog, and no tool result shows the file was selected or opened.",
+   "errored": false
+  },
+  {
+   "id": "f37",
+   "run": 1,
+   "passed": false,
+   "reason": "Word is open with the Open dialog showing, but report.docx was not actually opened.",
+   "errored": false
+  },
+  {
+   "id": "f37",
+   "run": 2,
+   "passed": false,
+   "reason": "Word was opened and the Open dialog appeared, but there is no evidence that report.docx was actually selected or opened.",
+   "errored": false
+  }
+ ],
+ "labels": {
+  "t01": {
+   "truth": "pass",
+   "category": "file_created",
+   "precheck": false
+  },
+  "t02": {
+   "truth": "pass",
+   "category": "file_created",
+   "precheck": false
+  },
+  "t03": {
+   "truth": "pass",
+   "category": "file_created",
+   "precheck": false
+  },
+  "t04": {
+   "truth": "pass",
+   "category": "file_created",
+   "precheck": false
+  },
+  "t05": {
+   "truth": "pass",
+   "category": "file_created",
+   "precheck": false
+  },
+  "t06": {
+   "truth": "pass",
+   "category": "file_created",
+   "precheck": false
+  },
+  "t07": {
+   "truth": "pass",
+   "category": "tab_url",
+   "precheck": false
+  },
+  "t08": {
+   "truth": "pass",
+   "category": "tab_url",
+   "precheck": false
+  },
+  "t09": {
+   "truth": "pass",
+   "category": "tab_url",
+   "precheck": false
+  },
+  "t10": {
+   "truth": "pass",
+   "category": "tab_url",
+   "precheck": false
+  },
+  "t11": {
+   "truth": "pass",
+   "category": "video_playing",
+   "precheck": false
+  },
+  "t12": {
+   "truth": "pass",
+   "category": "video_playing",
+   "precheck": false
+  },
+  "t13": {
+   "truth": "pass",
+   "category": "video_playing",
+   "precheck": false
+  },
+  "t14": {
+   "truth": "pass",
+   "category": "video_playing",
+   "precheck": false
+  },
+  "t15": {
+   "truth": "pass",
+   "category": "info_answer",
+   "precheck": false
+  },
+  "t16": {
+   "truth": "pass",
+   "category": "info_answer",
+   "precheck": false
+  },
+  "t17": {
+   "truth": "pass",
+   "category": "info_answer",
+   "precheck": false
+  },
+  "t18": {
+   "truth": "pass",
+   "category": "info_answer",
+   "precheck": false
+  },
+  "t19": {
+   "truth": "pass",
+   "category": "info_answer",
+   "precheck": false
+  },
+  "t20": {
+   "truth": "pass",
+   "category": "info_answer",
+   "precheck": false
+  },
+  "t21": {
+   "truth": "pass",
+   "category": "small_talk",
+   "precheck": false
+  },
+  "t22": {
+   "truth": "pass",
+   "category": "small_talk",
+   "precheck": false
+  },
+  "t23": {
+   "truth": "pass",
+   "category": "small_talk",
+   "precheck": false
+  },
+  "t24": {
+   "truth": "pass",
+   "category": "state_change",
+   "precheck": false
+  },
+  "t25": {
+   "truth": "pass",
+   "category": "state_change",
+   "precheck": false
+  },
+  "t26": {
+   "truth": "pass",
+   "category": "hard",
+   "precheck": false
+  },
+  "t27": {
+   "truth": "pass",
+   "category": "hard",
+   "precheck": false
+  },
+  "t28": {
+   "truth": "pass",
+   "category": "hard",
+   "precheck": false
+  },
+  "t29": {
+   "truth": "pass",
+   "category": "hard",
+   "precheck": false
+  },
+  "t30": {
+   "truth": "pass",
+   "category": "hard",
+   "precheck": false
+  },
+  "f01": {
+   "truth": "fail",
+   "category": "last_action_failed",
+   "precheck": false
+  },
+  "f03": {
+   "truth": "fail",
+   "category": "last_action_failed",
+   "precheck": false
+  },
+  "f04": {
+   "truth": "fail",
+   "category": "precheck",
+   "precheck": true
+  },
+  "f05": {
+   "truth": "fail",
+   "category": "precheck",
+   "precheck": true
+  },
+  "f06": {
+   "truth": "fail",
+   "category": "precheck",
+   "precheck": true
+  },
+  "f07": {
+   "truth": "fail",
+   "category": "not_confirmed",
+   "precheck": false
+  },
+  "f08": {
+   "truth": "fail",
+   "category": "not_confirmed",
+   "precheck": false
+  },
+  "f09": {
+   "truth": "fail",
+   "category": "not_confirmed",
+   "precheck": false
+  },
+  "f10": {
+   "truth": "fail",
+   "category": "not_confirmed",
+   "precheck": false
+  },
+  "f11": {
+   "truth": "fail",
+   "category": "evidence_contradicts",
+   "precheck": false
+  },
+  "f12": {
+   "truth": "fail",
+   "category": "evidence_contradicts",
+   "precheck": false
+  },
+  "f14": {
+   "truth": "fail",
+   "category": "evidence_contradicts",
+   "precheck": false
+  },
+  "f15": {
+   "truth": "fail",
+   "category": "evidence_contradicts",
+   "precheck": false
+  },
+  "f16": {
+   "truth": "fail",
+   "category": "hallucination",
+   "precheck": false
+  },
+  "f17": {
+   "truth": "fail",
+   "category": "hallucination",
+   "precheck": false
+  },
+  "f18": {
+   "truth": "fail",
+   "category": "hallucination",
+   "precheck": false
+  },
+  "f20": {
+   "truth": "fail",
+   "category": "hallucination",
+   "precheck": false
+  },
+  "f21": {
+   "truth": "fail",
+   "category": "wrong_target",
+   "precheck": false
+  },
+  "f22": {
+   "truth": "fail",
+   "category": "wrong_target",
+   "precheck": false
+  },
+  "f23": {
+   "truth": "fail",
+   "category": "wrong_target",
+   "precheck": false
+  },
+  "f24": {
+   "truth": "fail",
+   "category": "wrong_target",
+   "precheck": false
+  },
+  "f25": {
+   "truth": "fail",
+   "category": "partial",
+   "precheck": false
+  },
+  "f27": {
+   "truth": "fail",
+   "category": "partial",
+   "precheck": false
+  },
+  "f29": {
+   "truth": "fail",
+   "category": "user_refused",
+   "precheck": true
+  },
+  "f31": {
+   "truth": "fail",
+   "category": "hard",
+   "precheck": false
+  },
+  "f32": {
+   "truth": "fail",
+   "category": "hard",
+   "precheck": false
+  },
+  "f33": {
+   "truth": "fail",
+   "category": "hard",
+   "precheck": false
+  },
+  "f34": {
+   "truth": "fail",
+   "category": "hard",
+   "precheck": false
+  },
+  "f35": {
+   "truth": "fail",
+   "category": "hard",
+   "precheck": false
+  },
+  "f37": {
+   "truth": "fail",
+   "category": "hard",
+   "precheck": false
+  }
+ }
+}

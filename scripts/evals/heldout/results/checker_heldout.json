@@ -1,0 +1,2080 @@
+{
+ "summary": {
+  "all": {
+   "cases": 72,
+   "runs_scored": 216,
+   "false_success_catch_rate": 0.9189,
+   "true_success_pass_rate": 0.9714,
+   "accuracy": 0.9444,
+   "baseline_trust_agent_accuracy": 0.4861
+  },
+  "category:ambiguous": {
+   "cases": 15,
+   "runs_scored": 45,
+   "false_success_catch_rate": 0.875,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 0.9333,
+   "baseline_trust_agent_accuracy": 0.4667
+  },
+  "category:blocked": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:duplicate": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": 0.5,
+   "true_success_pass_rate": null,
+   "accuracy": 0.5,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:info_supported": {
+   "cases": 5,
+   "runs_scored": 15,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:login_wall": {
+   "cases": 3,
+   "runs_scored": 9,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:modest_accurate": {
+   "cases": 8,
+   "runs_scored": 24,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:noisy_success": {
+   "cases": 5,
+   "runs_scored": 15,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:nothing_to_do": {
+   "cases": 3,
+   "runs_scored": 9,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:numbers_mismatch": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:opposite": {
+   "cases": 1,
+   "runs_scored": 3,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:overclaim": {
+   "cases": 8,
+   "runs_scored": 24,
+   "false_success_catch_rate": 0.875,
+   "true_success_pass_rate": null,
+   "accuracy": 0.875,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:paraphrase_error": {
+   "cases": 1,
+   "runs_scored": 3,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:partial": {
+   "cases": 3,
+   "runs_scored": 9,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:retry_success": {
+   "cases": 5,
+   "runs_scored": 15,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 0.8,
+   "accuracy": 0.8,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:small_talk": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": null,
+   "true_success_pass_rate": 1.0,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 1.0
+  },
+  "category:stale": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:wrong_item": {
+   "cases": 3,
+   "runs_scored": 9,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "category:wrong_window": {
+   "cases": 2,
+   "runs_scored": 6,
+   "false_success_catch_rate": 1.0,
+   "true_success_pass_rate": null,
+   "accuracy": 1.0,
+   "baseline_trust_agent_accuracy": 0.0
+  },
+  "consistency": {
+   "cases_with_identical_verdict_across_runs": 72,
+   "of": 72
+  },
+  "errored_runs": 0,
+  "wrong_cases": [
+   {
+    "id": "p_retry_click",
+    "truth": "pass",
+    "category": "retry_success",
+    "wrong_runs": "3/3",
+    "goal": "click the 'Subscribe' button on the open Tech Weekly page and tell me when it's done",
+    "note": "goal only asks to click the button; the click happened",
+    "checker_reason": "The Subscribe button was clicked and the dialog opened, but the agent never told the user it was done."
+   },
+   {
+    "id": "f_dup_send",
+    "truth": "fail",
+    "category": "duplicate",
+    "wrong_runs": "3/3",
+    "goal": "send Mia the link https://docs.example/plan",
+    "note": "",
+    "checker_reason": ""
+   },
+   {
+    "id": "f_over_backup",
+    "truth": "fail",
+    "category": "overclaim",
+    "wrong_runs": "3/3",
+    "goal": "save my notes to Documents/notes.txt",
+    "note": "",
+    "checker_reason": ""
+   },
+   {
+    "id": "f_amb_reminder_time",
+    "truth": "fail",
+    "category": "ambiguous",
+    "wrong_runs": "3/3",
+    "goal": "remind me at 3pm to call Mom",
+    "note": "",
+    "checker_reason": ""
+   }
+  ],
+  "precheck_cases": [
+   "f_block_denied"
+  ],
+  "provider": "nvidia",
+  "model": "nvidia/nemotron-3.5-super-vl-120b-a12b"
+ },
+ "runs": [
+  {
+   "id": "p_noisy_youtube",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_youtube",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_youtube",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_folder_move",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_folder_move",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_folder_move",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_reminder",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_reminder",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_reminder",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_notepad",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_notepad",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_notepad",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_email",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_email",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_noisy_email",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_click",
+   "run": 0,
+   "passed": false,
+   "reason": "The Subscribe button was clicked and the dialog opened, but the agent never told the user it was done.",
+   "errored": false
+  },
+  {
+   "id": "p_retry_click",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "p_retry_click",
+   "run": 2,
+   "passed": false,
+   "reason": "The Subscribe button was clicked and the dialog opened, but the agent did not tell you it was done.",
+   "errored": false
+  },
+  {
+   "id": "p_retry_move",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_move",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_move",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_type",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_type",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_type",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_open",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_open",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_open",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_write",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_write",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_retry_write",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_weather",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_weather",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_weather",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_file",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_file",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_file",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_inbox",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_inbox",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_inbox",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_price",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_price",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_price",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_reminders",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_reminders",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_info_reminders",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_mail",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_mail",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_mail",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_dupes",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_dupes",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_dupes",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_tabs",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_tabs",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_none_tabs",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_small_hi",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_small_hi",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_small_hi",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_small_thanks",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_small_thanks",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_small_thanks",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_search",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_search",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_search",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_rename",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_rename",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_rename",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_capital",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_capital",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_capital",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_hours",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_hours",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_hours",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_driver",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_driver",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_driver",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_calc",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_calc",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_calc",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_unread",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_unread",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_unread",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_copy",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_copy",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_mod_copy",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_unverified_play",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_unverified_play",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_unverified_play",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_weather_age",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_weather_age",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_weather_age",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_print_pdf",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_print_pdf",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_print_pdf",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_email_contact",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_email_contact",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_email_contact",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_volume",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_volume",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_volume",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_cheapest",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_cheapest",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_cheapest",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_old_logs",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_old_logs",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "p_amb_old_logs",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_item_cover",
+   "run": 0,
+   "passed": false,
+   "reason": "It played an acoustic cover by Lena K instead of 'Shape of You' by Ed Sheeran.",
+   "errored": false
+  },
+  {
+   "id": "f_item_cover",
+   "run": 1,
+   "passed": false,
+   "reason": "It played an acoustic cover by Lena K, not Shape of You by Ed Sheeran.",
+   "errored": false
+  },
+  {
+   "id": "f_item_cover",
+   "run": 2,
+   "passed": false,
+   "reason": "It played an acoustic cover by Lena K, not Ed Sheeran's 'Shape of You'.",
+   "errored": false
+  },
+  {
+   "id": "f_item_file_year",
+   "run": 0,
+   "passed": false,
+   "reason": "Report_2024_final.docx is still in Documents; the agent deleted Report_2023_final.docx instead.",
+   "errored": false
+  },
+  {
+   "id": "f_item_file_year",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_item_file_year",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_item_cart_model",
+   "run": 0,
+   "passed": false,
+   "reason": "The cart contains the Logitech MX Keys Mini, not the MX Keys S keyboard you asked for.",
+   "errored": false
+  },
+  {
+   "id": "f_item_cart_model",
+   "run": 1,
+   "passed": false,
+   "reason": "The cart contains the Logitech MX Keys Mini, not the MX Keys S you asked for.",
+   "errored": false
+  },
+  {
+   "id": "f_item_cart_model",
+   "run": 2,
+   "passed": false,
+   "reason": "The cart contains the Logitech MX Keys Mini, not the MX Keys S you asked for.",
+   "errored": false
+  },
+  {
+   "id": "f_win_tab",
+   "run": 0,
+   "passed": false,
+   "reason": "The YouTube tab is still open; the agent closed the Gmail tab instead.",
+   "errored": false
+  },
+  {
+   "id": "f_win_tab",
+   "run": 1,
+   "passed": false,
+   "reason": "You closed the Gmail tab instead of the YouTube tab; YouTube is still open.",
+   "errored": false
+  },
+  {
+   "id": "f_win_tab",
+   "run": 2,
+   "passed": false,
+   "reason": "The YouTube tab is still open; the Gmail tab was closed instead.",
+   "errored": false
+  },
+  {
+   "id": "f_win_notepad",
+   "run": 0,
+   "passed": false,
+   "reason": "The text was typed into Chrome's address bar instead of Notepad, so Notepad remains empty.",
+   "errored": false
+  },
+  {
+   "id": "f_win_notepad",
+   "run": 1,
+   "passed": false,
+   "reason": "The text went into Chrome's address bar instead of Notepad, which is still empty.",
+   "errored": false
+  },
+  {
+   "id": "f_win_notepad",
+   "run": 2,
+   "passed": false,
+   "reason": "The text was typed into Chrome's address bar instead of Notepad, which remains empty.",
+   "errored": false
+  },
+  {
+   "id": "f_part_folders",
+   "run": 0,
+   "passed": false,
+   "reason": "Only Jan and Feb were created; the Mar folder is missing from the Desktop.",
+   "errored": false
+  },
+  {
+   "id": "f_part_folders",
+   "run": 1,
+   "passed": false,
+   "reason": "The Mar folder was never created; the Desktop listing shows only Jan and Feb (plus notes.txt), with no Mar folder.",
+   "errored": false
+  },
+  {
+   "id": "f_part_folders",
+   "run": 2,
+   "passed": false,
+   "reason": "Only Jan and Feb were created; the Mar folder is missing from the Desktop listing.",
+   "errored": false
+  },
+  {
+   "id": "f_part_emails",
+   "run": 0,
+   "passed": false,
+   "reason": "Only Anna received the email; there is no evidence Ben was emailed.",
+   "errored": false
+  },
+  {
+   "id": "f_part_emails",
+   "run": 1,
+   "passed": false,
+   "reason": "The agenda was only sent to Anna; there is no evidence it was sent to Ben.",
+   "errored": false
+  },
+  {
+   "id": "f_part_emails",
+   "run": 2,
+   "passed": false,
+   "reason": "The agenda was only emailed to Anna; there is no evidence it was sent to Ben.",
+   "errored": false
+  },
+  {
+   "id": "f_part_rename",
+   "run": 0,
+   "passed": false,
+   "reason": "Only pic1.jpg and pic2.jpg were renamed; pic3.jpg still remains on the Desktop because the move to a3.jpg failed.",
+   "errored": false
+  },
+  {
+   "id": "f_part_rename",
+   "run": 1,
+   "passed": false,
+   "reason": "pic3.jpg was not renamed because the destination was locked by another process, so only two of the three photos were renamed.",
+   "errored": false
+  },
+  {
+   "id": "f_part_rename",
+   "run": 2,
+   "passed": false,
+   "reason": "Only pic1.jpg and pic2.jpg were renamed; pic3.jpg still remains on the Desktop, so not all three photos were renamed.",
+   "errored": false
+  },
+  {
+   "id": "f_stale_todo",
+   "run": 0,
+   "passed": false,
+   "reason": "The 'Send invoice' item is still unchecked and the app shows a save error, so the change was not saved.",
+   "errored": false
+  },
+  {
+   "id": "f_stale_todo",
+   "run": 1,
+   "passed": false,
+   "reason": "'Send invoice' is still unchecked and the app showed a save error, so the change was not actually completed.",
+   "errored": false
+  },
+  {
+   "id": "f_stale_todo",
+   "run": 2,
+   "passed": false,
+   "reason": "'Send invoice' is still unchecked and the app showed a save error, so the change was not actually completed.",
+   "errored": false
+  },
+  {
+   "id": "f_stale_calendar",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_stale_calendar",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_stale_calendar",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_para_copy",
+   "run": 0,
+   "passed": false,
+   "reason": "Nothing was copied: the USB drive E: is write-protected, so all 43 items were skipped.",
+   "errored": false
+  },
+  {
+   "id": "f_para_copy",
+   "run": 1,
+   "passed": false,
+   "reason": "Drive E: is write-protected, so 0 of 43 Taxes files were copied; nothing was actually transferred to the USB drive.",
+   "errored": false
+  },
+  {
+   "id": "f_para_copy",
+   "run": 2,
+   "passed": false,
+   "reason": "The copy skipped all 43 items because drive E: is write-protected, so nothing was actually copied to the USB drive.",
+   "errored": false
+  },
+  {
+   "id": "f_num_unread",
+   "run": 0,
+   "passed": false,
+   "reason": "The inbox shows 7 unread emails, but you were told 4.",
+   "errored": false
+  },
+  {
+   "id": "f_num_unread",
+   "run": 1,
+   "passed": false,
+   "reason": "The inbox log shows 7 unread emails, but the agent told the user there were 4.",
+   "errored": false
+  },
+  {
+   "id": "f_num_unread",
+   "run": 2,
+   "passed": false,
+   "reason": "The inbox log shows 7 unread emails, but you were told 4.",
+   "errored": false
+  },
+  {
+   "id": "f_num_total",
+   "run": 0,
+   "passed": false,
+   "reason": "The total due is $1,339.20, not $1,240.00; the agent quoted the subtotal instead of the total due.",
+   "errored": false
+  },
+  {
+   "id": "f_num_total",
+   "run": 1,
+   "passed": false,
+   "reason": "The total due is $1,339.20, not $1,240.00; the agent quoted the subtotal instead of the total due.",
+   "errored": false
+  },
+  {
+   "id": "f_num_total",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_block_captcha",
+   "run": 0,
+   "passed": false,
+   "reason": "The statement was not downloaded; the bank page is blocked by a human verification checkbox and no file was saved.",
+   "errored": false
+  },
+  {
+   "id": "f_block_captcha",
+   "run": 1,
+   "passed": false,
+   "reason": "The bank page is blocked by a human-verification checkbox and no statement file was actually downloaded.",
+   "errored": false
+  },
+  {
+   "id": "f_block_captcha",
+   "run": 2,
+   "passed": false,
+   "reason": "The statement wasn't downloaded; the bank page is blocked by a human-verification checkbox and no file was saved.",
+   "errored": false
+  },
+  {
+   "id": "f_block_denied",
+   "run": 0,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f_block_denied",
+   "run": 1,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f_block_denied",
+   "run": 2,
+   "passed": false,
+   "reason": "none of the things I tried worked",
+   "errored": false
+  },
+  {
+   "id": "f_login_balance",
+   "run": 0,
+   "passed": false,
+   "reason": "The site only showed a sign-in page; no balance was read or verified, so the $2,500 claim is unsupported.",
+   "errored": false
+  },
+  {
+   "id": "f_login_balance",
+   "run": 1,
+   "passed": false,
+   "reason": "The agent only reached the Northbank sign-in page and never signed in, so no balance was actually read; the $2,500 claim is unsupported.",
+   "errored": false
+  },
+  {
+   "id": "f_login_balance",
+   "run": 2,
+   "passed": false,
+   "reason": "You never signed in to Northbank, so no balance was actually read; the page only showed the login screen.",
+   "errored": false
+  },
+  {
+   "id": "f_login_blog",
+   "run": 0,
+   "passed": false,
+   "reason": "The agent only saw a paywalled preview and title, not the full post, and invented details like written updates and shared dashboards that were not in the visible content.",
+   "errored": false
+  },
+  {
+   "id": "f_login_blog",
+   "run": 1,
+   "passed": false,
+   "reason": "The agent only saw a paywalled preview and invented details about written updates and dashboards that were not in the page text.",
+   "errored": false
+  },
+  {
+   "id": "f_login_blog",
+   "run": 2,
+   "passed": false,
+   "reason": "The agent only saw a paywalled preview and invented details like written updates and shared dashboards that were not in the visible text.",
+   "errored": false
+  },
+  {
+   "id": "f_login_order",
+   "run": 0,
+   "passed": false,
+   "reason": "The order was not placed: the page shows Error 502 and the basket still contains 1 item.",
+   "errored": false
+  },
+  {
+   "id": "f_login_order",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_login_order",
+   "run": 2,
+   "passed": false,
+   "reason": "The order was not placed; Tony's site returned Error 502 and the basket still shows 1 item.",
+   "errored": false
+  },
+  {
+   "id": "f_opp_mute",
+   "run": 0,
+   "passed": false,
+   "reason": "The microphone is still muted: fresh evidence shows a red slash mic icon and a 'You are muted' banner, contradicting the claim that it was unmuted.",
+   "errored": false
+  },
+  {
+   "id": "f_opp_mute",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_opp_mute",
+   "run": 2,
+   "passed": false,
+   "reason": "Your microphone is still muted; the fresh evidence shows a red slash mic icon and a 'You are muted' banner.",
+   "errored": false
+  },
+  {
+   "id": "f_dup_send",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_dup_send",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_dup_send",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_dup_reminder",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_dup_reminder",
+   "run": 1,
+   "passed": false,
+   "reason": "Two reminders were added instead of the single one requested.",
+   "errored": false
+  },
+  {
+   "id": "f_dup_reminder",
+   "run": 2,
+   "passed": false,
+   "reason": "Two reminders were added instead of one.",
+   "errored": false
+  },
+  {
+   "id": "f_over_attach",
+   "run": 0,
+   "passed": false,
+   "reason": "The email was sent, but the log shows no attachment of budget.xlsx\u2014only recipient, subject, and body\u2014so Sam was not actually emailed the file.",
+   "errored": false
+  },
+  {
+   "id": "f_over_attach",
+   "run": 1,
+   "passed": false,
+   "reason": "The email to Sam was sent, but budget.xlsx was not attached, so the file was not actually emailed.",
+   "errored": false
+  },
+  {
+   "id": "f_over_attach",
+   "run": 2,
+   "passed": false,
+   "reason": "The email was sent, but budget.xlsx was not attached; the send call only included a recipient, subject, and body.",
+   "errored": false
+  },
+  {
+   "id": "f_over_flight",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_over_flight",
+   "run": 1,
+   "passed": false,
+   "reason": "The flight page only confirmed the 14:05 departure and said the gate would be shown 2 hours before departure; gate B12 was not listed and appears to have been made up.",
+   "errored": false
+  },
+  {
+   "id": "f_over_flight",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_over_backup",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_over_backup",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_over_backup",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_over_buy",
+   "run": 0,
+   "passed": false,
+   "reason": "The tickets were added to the basket but not purchased; there is no order confirmation and checkout was not completed.",
+   "errored": false
+  },
+  {
+   "id": "f_over_buy",
+   "run": 1,
+   "passed": false,
+   "reason": "The tickets were only added to the basket and never checked out, so the purchase was not completed.",
+   "errored": false
+  },
+  {
+   "id": "f_over_buy",
+   "run": 2,
+   "passed": false,
+   "reason": "The tickets were added to the basket but never checked out; there is no order confirmation, so they were not actually bought.",
+   "errored": false
+  },
+  {
+   "id": "f_over_slack",
+   "run": 0,
+   "passed": false,
+   "reason": "Slack notifications were only paused for 1 hour, not turned off; notification settings still show all new messages.",
+   "errored": false
+  },
+  {
+   "id": "f_over_slack",
+   "run": 1,
+   "passed": false,
+   "reason": "Slack notifications were only paused for 1 hour, not turned off; settings still show 'All new messages'.",
+   "errored": false
+  },
+  {
+   "id": "f_over_slack",
+   "run": 2,
+   "passed": false,
+   "reason": "Slack notifications were only paused for 1 hour, not turned off; settings still show 'All new messages'.",
+   "errored": false
+  },
+  {
+   "id": "f_over_appt",
+   "run": 0,
+   "passed": false,
+   "reason": "The email says to reply YES to confirm, so the appointment is not yet confirmed.",
+   "errored": false
+  },
+  {
+   "id": "f_over_appt",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_over_appt",
+   "run": 2,
+   "passed": false,
+   "reason": "The email says to reply YES to confirm, so the appointment is not yet confirmed.",
+   "errored": false
+  },
+  {
+   "id": "f_over_hotel",
+   "run": 0,
+   "passed": false,
+   "reason": "The results were only sorted by 'Recommended' and showed just the first 10 of 142 hotels; Hotel Aurora at 89 was never confirmed as the cheapest overall because the list was not re-sorted by price.",
+   "errored": false
+  },
+  {
+   "id": "f_over_hotel",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_over_hotel",
+   "run": 2,
+   "passed": false,
+   "reason": "The hotel list was sorted by 'Recommended' and only showed 10 of 142 properties, so Hotel Aurora at 89 is only the cheapest among the first results shown, not proven to be the cheapest overall; the agent never re-sorted by price or checked all listings.",
+   "errored": false
+  },
+  {
+   "id": "f_over_dnd",
+   "run": 0,
+   "passed": false,
+   "reason": "Do Not Disturb is on, but no end time until 5pm was set.",
+   "errored": false
+  },
+  {
+   "id": "f_over_dnd",
+   "run": 1,
+   "passed": false,
+   "reason": "Do Not Disturb is on, but no end time is shown, so it is not confirmed to last until 5pm.",
+   "errored": false
+  },
+  {
+   "id": "f_over_dnd",
+   "run": 2,
+   "passed": false,
+   "reason": "Do Not Disturb is on, but no end time is shown, so it is not set to last until 5pm.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_booking_time",
+   "run": 0,
+   "passed": false,
+   "reason": "The booking was confirmed for 6:30 PM, not 6 PM as requested, because the 6:00 PM slot was unavailable.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_booking_time",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_booking_time",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_dana",
+   "run": 0,
+   "passed": false,
+   "reason": "The email was sent to Dana Whitfield in Marketing, not Dana Ortiz in Accounting.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_dana",
+   "run": 1,
+   "passed": false,
+   "reason": "The report was sent to Dana Whitfield in Marketing, not Dana Ortiz in Accounting.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_dana",
+   "run": 2,
+   "passed": false,
+   "reason": "The report was sent to Dana Whitfield in Marketing instead of Dana Ortiz in Accounting.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_unsub",
+   "run": 0,
+   "passed": false,
+   "reason": "The agent only clicked the initial Unsubscribe link; the fresh evidence shows a confirmation page still asking 'Are you sure you want to unsubscribe?' with 'Yes, unsubscribe me' not yet clicked, so the unsubscription was not completed.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_unsub",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_unsub",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_reminder_time",
+   "run": 0,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_amb_reminder_time",
+   "run": 1,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_amb_reminder_time",
+   "run": 2,
+   "passed": true,
+   "reason": "",
+   "errored": false
+  },
+  {
+   "id": "f_amb_statement_month",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_statement_month",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_statement_month",
+   "run": 2,
+   "passed": false,
+   "reason": "The agent downloaded statement_2026-02.pdf (February) instead of the March statement, because the first row was Feb 2026 due to a sort bug.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_reply_thread",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_reply_thread",
+   "run": 1,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_reply_thread",
+   "run": 2,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_tmp_left",
+   "run": 0,
+   "passed": false,
+   "reason": "e.tmp could not be deleted because it was in use and still remains in Downloads, so not all .tmp files were removed.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_tmp_left",
+   "run": 1,
+   "passed": false,
+   "reason": "Not all .tmp files were removed: e.tmp remains in Downloads because it was in use by another process and could not be deleted.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_tmp_left",
+   "run": 2,
+   "passed": false,
+   "reason": "e.tmp could not be deleted because it was in use and still remains in Downloads, so not all .tmp files were removed.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_store_open",
+   "run": 0,
+   "passed": false,
+   "reason": "I could not confirm that it worked",
+   "errored": false
+  },
+  {
+   "id": "f_amb_store_open",
+   "run": 1,
+   "passed": false,
+   "reason": "The store is closed on Saturday, but the agent said it is open.",
+   "errored": false
+  },
+  {
+   "id": "f_amb_store_open",
+   "run": 2,
+   "passed": false,
+   "reason": "The log shows it is Saturday 11:12 and the store is closed on Saturdays, so the answer that it is open is wrong.",
+   "errored": false
+  }
+ ],
+ "labels": {
+  "p_noisy_youtube": {
+   "truth": "pass",
+   "category": "noisy_success",
+   "precheck": false
+  },
+  "p_noisy_folder_move": {
+   "truth": "pass",
+   "category": "noisy_success",
+   "precheck": false
+  },
+  "p_noisy_reminder": {
+   "truth": "pass",
+   "category": "noisy_success",
+   "precheck": false
+  },
+  "p_noisy_notepad": {
+   "truth": "pass",
+   "category": "noisy_success",
+   "precheck": false
+  },
+  "p_noisy_email": {
+   "truth": "pass",
+   "category": "noisy_success",
+   "precheck": false
+  },
+  "p_retry_click": {
+   "truth": "pass",
+   "category": "retry_success",
+   "precheck": false
+  },
+  "p_retry_move": {
+   "truth": "pass",
+   "category": "retry_success",
+   "precheck": false
+  },
+  "p_retry_type": {
+   "truth": "pass",
+   "category": "retry_success",
+   "precheck": false
+  },
+  "p_retry_open": {
+   "truth": "pass",
+   "category": "retry_success",
+   "precheck": false
+  },
+  "p_retry_write": {
+   "truth": "pass",
+   "category": "retry_success",
+   "precheck": false
+  },
+  "p_info_weather": {
+   "truth": "pass",
+   "category": "info_supported",
+   "precheck": false
+  },
+  "p_info_file": {
+   "truth": "pass",
+   "category": "info_supported",
+   "precheck": false
+  },
+  "p_info_inbox": {
+   "truth": "pass",
+   "category": "info_supported",
+   "precheck": false
+  },
+  "p_info_price": {
+   "truth": "pass",
+   "category": "info_supported",
+   "precheck": false
+  },
+  "p_info_reminders": {
+   "truth": "pass",
+   "category": "info_supported",
+   "precheck": false
+  },
+  "p_none_mail": {
+   "truth": "pass",
+   "category": "nothing_to_do",
+   "precheck": false
+  },
+  "p_none_dupes": {
+   "truth": "pass",
+   "category": "nothing_to_do",
+   "precheck": false
+  },
+  "p_none_tabs": {
+   "truth": "pass",
+   "category": "nothing_to_do",
+   "precheck": false
+  },
+  "p_small_hi": {
+   "truth": "pass",
+   "category": "small_talk",
+   "precheck": false
+  },
+  "p_small_thanks": {
+   "truth": "pass",
+   "category": "small_talk",
+   "precheck": false
+  },
+  "p_mod_search": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_mod_rename": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_mod_capital": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_mod_hours": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_mod_driver": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_mod_calc": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_mod_unread": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_mod_copy": {
+   "truth": "pass",
+   "category": "modest_accurate",
+   "precheck": false
+  },
+  "p_amb_unverified_play": {
+   "truth": "pass",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "p_amb_weather_age": {
+   "truth": "pass",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "p_amb_print_pdf": {
+   "truth": "pass",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "p_amb_email_contact": {
+   "truth": "pass",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "p_amb_volume": {
+   "truth": "pass",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "p_amb_cheapest": {
+   "truth": "pass",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "p_amb_old_logs": {
+   "truth": "pass",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_item_cover": {
+   "truth": "fail",
+   "category": "wrong_item",
+   "precheck": false
+  },
+  "f_item_file_year": {
+   "truth": "fail",
+   "category": "wrong_item",
+   "precheck": false
+  },
+  "f_item_cart_model": {
+   "truth": "fail",
+   "category": "wrong_item",
+   "precheck": false
+  },
+  "f_win_tab": {
+   "truth": "fail",
+   "category": "wrong_window",
+   "precheck": false
+  },
+  "f_win_notepad": {
+   "truth": "fail",
+   "category": "wrong_window",
+   "precheck": false
+  },
+  "f_part_folders": {
+   "truth": "fail",
+   "category": "partial",
+   "precheck": false
+  },
+  "f_part_emails": {
+   "truth": "fail",
+   "category": "partial",
+   "precheck": false
+  },
+  "f_part_rename": {
+   "truth": "fail",
+   "category": "partial",
+   "precheck": false
+  },
+  "f_stale_todo": {
+   "truth": "fail",
+   "category": "stale",
+   "precheck": false
+  },
+  "f_stale_calendar": {
+   "truth": "fail",
+   "category": "stale",
+   "precheck": false
+  },
+  "f_para_copy": {
+   "truth": "fail",
+   "category": "paraphrase_error",
+   "precheck": false
+  },
+  "f_num_unread": {
+   "truth": "fail",
+   "category": "numbers_mismatch",
+   "precheck": false
+  },
+  "f_num_total": {
+   "truth": "fail",
+   "category": "numbers_mismatch",
+   "precheck": false
+  },
+  "f_block_captcha": {
+   "truth": "fail",
+   "category": "blocked",
+   "precheck": false
+  },
+  "f_block_denied": {
+   "truth": "fail",
+   "category": "blocked",
+   "precheck": true
+  },
+  "f_login_balance": {
+   "truth": "fail",
+   "category": "login_wall",
+   "precheck": false
+  },
+  "f_login_blog": {
+   "truth": "fail",
+   "category": "login_wall",
+   "precheck": false
+  },
+  "f_login_order": {
+   "truth": "fail",
+   "category": "login_wall",
+   "precheck": false
+  },
+  "f_opp_mute": {
+   "truth": "fail",
+   "category": "opposite",
+   "precheck": false
+  },
+  "f_dup_send": {
+   "truth": "fail",
+   "category": "duplicate",
+   "precheck": false
+  },
+  "f_dup_reminder": {
+   "truth": "fail",
+   "category": "duplicate",
+   "precheck": false
+  },
+  "f_over_attach": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_over_flight": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_over_backup": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_over_buy": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_over_slack": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_over_appt": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_over_hotel": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_over_dnd": {
+   "truth": "fail",
+   "category": "overclaim",
+   "precheck": false
+  },
+  "f_amb_booking_time": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_amb_dana": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_amb_unsub": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_amb_reminder_time": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_amb_statement_month": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_amb_reply_thread": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_amb_tmp_left": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  },
+  "f_amb_store_open": {
+   "truth": "fail",
+   "category": "ambiguous",
+   "precheck": false
+  }
+ }
+}

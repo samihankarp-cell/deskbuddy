@@ -1,0 +1,1575 @@
+[
+ {
+  "id": "t01",
+  "goal": "Create a file called shopping.txt in Documents with milk, eggs and bread",
+  "log": [
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\shopping.txt",
+     "content": "milk\neggs\nbread"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Wrote C:\\Users\\sam\\Documents\\shopping.txt",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Created shopping.txt with milk, eggs and bread",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "file_created",
+  "note": "verified write, content matches"
+ },
+ {
+  "id": "t02",
+  "goal": "Make a folder called Invoices on my Desktop",
+  "log": [
+   {
+    "tool": "folder_create",
+    "args": {
+     "path": "C:\\Users\\sam\\Desktop\\Invoices"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Created folder C:\\Users\\sam\\Desktop\\Invoices",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Created the Invoices folder on the Desktop",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "file_created",
+  "note": "verified folder"
+ },
+ {
+  "id": "t03",
+  "goal": "Save a note called idea.txt in Documents saying 'build the garden shed'",
+  "log": [
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\idea.txt",
+     "content": "build the garden shed"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Wrote C:\\Users\\sam\\Documents\\idea.txt",
+    "stop_reason": ""
+   },
+   {
+    "tool": "file_read",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\idea.txt"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "build the garden shed",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Wrote idea.txt",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "file_created",
+  "note": "write plus read-back"
+ },
+ {
+  "id": "t04",
+  "goal": "Move report.docx from Downloads to Documents",
+  "log": [
+   {
+    "tool": "file_move",
+    "args": {
+     "src": "C:\\Users\\sam\\Downloads\\report.docx",
+     "dst": "C:\\Users\\sam\\Documents\\report.docx"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Moved C:\\Users\\sam\\Downloads\\report.docx to C:\\Users\\sam\\Documents\\report.docx",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Moved report.docx to Documents",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "file_created",
+  "note": "verified move"
+ },
+ {
+  "id": "t05",
+  "goal": "Copy budget.xlsx on my Desktop into the Backup folder in Documents",
+  "log": [
+   {
+    "tool": "file_copy",
+    "args": {
+     "src": "C:\\Users\\sam\\Desktop\\budget.xlsx",
+     "dst": "C:\\Users\\sam\\Documents\\Backup\\budget.xlsx"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Copied C:\\Users\\sam\\Desktop\\budget.xlsx to C:\\Users\\sam\\Documents\\Backup\\budget.xlsx",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Copied budget.xlsx into Backup",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "file_created",
+  "note": "verified copy"
+ },
+ {
+  "id": "t06",
+  "goal": "Delete old_draft.txt from Documents",
+  "log": [
+   {
+    "tool": "file_delete",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\old_draft.txt"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Sent C:\\Users\\sam\\Documents\\old_draft.txt to the Recycle Bin",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Sent old_draft.txt to the Recycle Bin",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "file_created",
+  "note": "verified delete"
+ },
+ {
+  "id": "t07",
+  "goal": "Open github.com",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://github.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: GitHub: Let's build from here | https://github.com/",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened GitHub",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: GitHub: Let's build from here | https://github.com/",
+  "truth": "pass",
+  "category": "tab_url",
+  "note": "url matches"
+ },
+ {
+  "id": "t08",
+  "goal": "Open the Wikipedia page for Alan Turing",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://en.wikipedia.org/wiki/Alan_Turing"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: Alan Turing - Wikipedia | https://en.wikipedia.org/wiki/Alan_Turing",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened the Alan Turing Wikipedia page",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Alan Turing - Wikipedia | https://en.wikipedia.org/wiki/Alan_Turing",
+  "truth": "pass",
+  "category": "tab_url",
+  "note": "url matches"
+ },
+ {
+  "id": "t09",
+  "goal": "Search the web for best hiking trails near Seattle",
+  "log": [
+   {
+    "tool": "browser_search",
+    "args": {
+     "query": "best hiking trails near Seattle"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: best hiking trails near Seattle - Google Search | https://www.google.com/search?q=best+hiking+trails+near+Seattle",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Searched for hiking trails near Seattle",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: best hiking trails near Seattle - Google Search | https://www.google.com/search?q=best+hiking+trails+near+Seattle",
+  "truth": "pass",
+  "category": "tab_url",
+  "note": "search results page"
+ },
+ {
+  "id": "t10",
+  "goal": "Open the NASA website",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://www.nasa.gov"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: NASA | https://www.nasa.gov/",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened nasa.gov",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: NASA | https://www.nasa.gov/",
+  "truth": "pass",
+  "category": "tab_url",
+  "note": "url matches"
+ },
+ {
+  "id": "t11",
+  "goal": "Play Bohemian Rhapsody",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "Bohemian Rhapsody"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"Queen - Bohemian Rhapsody (Official Video Remastered)\" is playing, at 3.1 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing Bohemian Rhapsody by Queen",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Queen - Bohemian Rhapsody (Official Video Remastered) - YouTube | https://www.youtube.com/watch?v=fJ9rUzIMcZQ\nVideo on that tab: playing=True time=14.2 title=Queen - Bohemian Rhapsody (Official Video Remastered)",
+  "truth": "pass",
+  "category": "video_playing",
+  "note": "advancing time"
+ },
+ {
+  "id": "t12",
+  "goal": "Play Lo-fi hip hop radio",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "lofi hip hop radio"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"lofi hip hop radio - beats to relax/study to\" is playing, at 52.4 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing lofi hip hop radio",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: lofi hip hop radio - beats to relax/study to - YouTube | https://www.youtube.com/watch?v=jfKfPfyJRdk\nVideo on that tab: playing=True time=54.0 title=lofi hip hop radio - beats to relax/study to",
+  "truth": "pass",
+  "category": "video_playing",
+  "note": "live stream playing"
+ },
+ {
+  "id": "t13",
+  "goal": "Play my morning song, Here Comes The Sun",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "The Beatles Here Comes The Sun"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"The Beatles - Here Comes The Sun (Remastered 2009)\" is playing, at 2.2 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing Here Comes The Sun",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: The Beatles - Here Comes The Sun (Remastered 2009) - YouTube | https://www.youtube.com/watch?v=xUNqsfFUwhY\nVideo on that tab: playing=True time=3.5 title=The Beatles - Here Comes The Sun (Remastered 2009)",
+  "truth": "pass",
+  "category": "video_playing",
+  "note": "advancing time"
+ },
+ {
+  "id": "t14",
+  "goal": "Put on a tutorial on how to tie a tie",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "how to tie a tie tutorial"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"How To Tie A Tie - Windsor Knot\" is playing, at 1.0 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing a tie tutorial",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: How To Tie A Tie - Windsor Knot - YouTube | https://www.youtube.com/watch?v=xyz1234\nVideo on that tab: playing=True time=2.4 title=How To Tie A Tie - Windsor Knot",
+  "truth": "pass",
+  "category": "video_playing",
+  "note": "tutorial is on topic"
+ },
+ {
+  "id": "t15",
+  "goal": "How many unread emails do I have?",
+  "log": [
+   {
+    "tool": "gmail_inbox",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Unread: 3\n1. Priya N. - Interview schedule\n2. LinkedIn - New jobs\n3. Substack - Weekly digest",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Read the inbox",
+  "answer": "Three unread emails, one about your interview schedule.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "info_answer",
+  "note": "supported by tool"
+ },
+ {
+  "id": "t16",
+  "goal": "What files are in my Downloads folder?",
+  "log": [
+   {
+    "tool": "file_list",
+    "args": {
+     "path": "C:\\Users\\sam\\Downloads"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "C:\\Users\\sam\\Downloads:\nreport.docx\nsetup.exe\nphoto.jpg",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Listed Downloads",
+  "answer": "Downloads holds report.docx, setup.exe and photo.jpg.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "info_answer",
+  "note": "supported by tool"
+ },
+ {
+  "id": "t17",
+  "goal": "What is the capital of Australia?",
+  "log": [
+   {
+    "tool": "web_lookup",
+    "args": {
+     "query": "capital of Australia"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Canberra is the capital city of Australia, located in the Australian Capital Territory.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Looked it up",
+  "answer": "The capital of Australia is Canberra.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "info_answer",
+  "note": "supported by web_lookup"
+ },
+ {
+  "id": "t18",
+  "goal": "What does my notes.txt in Documents say?",
+  "log": [
+   {
+    "tool": "file_read",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\notes.txt"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Call dentist Tuesday\nBuy printer ink",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Read notes.txt",
+  "answer": "It says: call dentist Tuesday, and buy printer ink.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "info_answer",
+  "note": "supported by file_read"
+ },
+ {
+  "id": "t19",
+  "goal": "What reminders do I have?",
+  "log": [
+   {
+    "tool": "reminder_list",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "1. Pay rent (Fri 09:00)\n2. Call mom (Sun 18:00)",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Listed reminders",
+  "answer": "Two: pay rent on Friday and call mom on Sunday.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "info_answer",
+  "note": "supported"
+ },
+ {
+  "id": "t20",
+  "goal": "What is the headline on the BBC News page I have open?",
+  "log": [
+   {
+    "tool": "browser_read",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "BBC News\nHeadline: Storm warnings issued across southern coast\nMore stories...",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Read the page",
+  "answer": "The top headline is about storm warnings across the southern coast.",
+  "fresh_evidence": "Browser tab now: BBC News - Home | https://www.bbc.com/news",
+  "truth": "pass",
+  "category": "info_answer",
+  "note": "supported by browser_read"
+ },
+ {
+  "id": "t21",
+  "goal": "Hi Desk Buddy, how are you?",
+  "log": [],
+  "summary": "Chatted",
+  "answer": "Doing great, thanks! What can I do for you?",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "small_talk",
+  "note": "no action needed"
+ },
+ {
+  "id": "t22",
+  "goal": "Thanks, that was helpful!",
+  "log": [],
+  "summary": "Chatted",
+  "answer": "Anytime! Happy to help.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "small_talk",
+  "note": "no action"
+ },
+ {
+  "id": "t23",
+  "goal": "Tell me a joke",
+  "log": [],
+  "summary": "Told a joke",
+  "answer": "Why did the robot go on vacation? It needed to recharge.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "small_talk",
+  "note": "no action"
+ },
+ {
+  "id": "t24",
+  "goal": "Remind me to call the bank tomorrow at 10",
+  "log": [
+   {
+    "tool": "reminder_add",
+    "args": {
+     "text": "call the bank",
+     "when": "tomorrow 10:00"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Reminder 3 set: call the bank (Sat 10:00)",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Set a reminder for the bank call",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "state_change",
+  "note": "verified"
+ },
+ {
+  "id": "t25",
+  "goal": "Remember that I prefer dark mode apps",
+  "log": [
+   {
+    "tool": "remember",
+    "args": {
+     "fact": "prefers dark mode apps"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Saved: prefers dark mode apps",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Saved your preference",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "state_change",
+  "note": "verified"
+ },
+ {
+  "id": "t26",
+  "goal": "Create todo.txt in Documents with 'water plants'",
+  "log": [
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\todo.txt",
+     "content": "water plants"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "FAILED write: permission denied",
+    "stop_reason": ""
+   },
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\todo.txt",
+     "content": "water plants"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Wrote C:\\Users\\sam\\Documents\\todo.txt",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Created todo.txt",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "hard",
+  "note": "first try failed, retry succeeded and verified"
+ },
+ {
+  "id": "t27",
+  "goal": "Open the pricing page on stripe.com",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://stripe.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: Stripe | https://stripe.com/",
+    "stop_reason": ""
+   },
+   {
+    "tool": "browser_look",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "[1] link Pricing\n[2] link Products",
+    "stop_reason": ""
+   },
+   {
+    "tool": "browser_click",
+    "args": {
+     "id": 1
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Clicked \"Pricing\". Page unchanged check inconclusive (single-page app).",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened Stripe's pricing page",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Pricing & Fees | Stripe | https://stripe.com/pricing",
+  "truth": "pass",
+  "category": "hard",
+  "note": "click unconfirmed but fresh evidence proves it"
+ },
+ {
+  "id": "t28",
+  "goal": "How many emails do I have from LinkedIn?",
+  "log": [
+   {
+    "tool": "gmail_inbox",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Unread: 5\n1. LinkedIn - New jobs for you\n2. Priya N. - Hi\n3. LinkedIn - You appeared in 4 searches\n4. Bank - Statement\n5. LinkedIn - Invitation",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Read inbox",
+  "answer": "Three of your unread emails are from LinkedIn.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "pass",
+  "category": "hard",
+  "note": "count derived correctly (3)"
+ },
+ {
+  "id": "t29",
+  "goal": "Play Blinding Lights by The Weeknd",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "The Weeknd Blinding Lights"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "I opened \"The Weeknd - Blinding Lights (Official Audio)\" but the player is not playing. It may be blocked.",
+    "stop_reason": ""
+   },
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "The Weeknd Blinding Lights official video",
+     "new_window": true
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"The Weeknd - Blinding Lights (Official Video)\" is playing, at 1.8 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing Blinding Lights by The Weeknd",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: The Weeknd - Blinding Lights (Official Video) - YouTube | https://www.youtube.com/watch?v=4NRXx6U8ABQ\nVideo on that tab: playing=True time=6.0 title=The Weeknd - Blinding Lights (Official Video)",
+  "truth": "pass",
+  "category": "hard",
+  "note": "retry worked"
+ },
+ {
+  "id": "t30",
+  "goal": "Type 'meeting at 3pm' into Notepad",
+  "log": [
+   {
+    "tool": "app_open",
+    "args": {
+     "name": "Notepad"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened Notepad",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_look",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "[1] edit Text Editor",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_type",
+    "args": {
+     "id": 1,
+     "text": "meeting at 3pm"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Typed the text with the keyboard.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Typed the note in Notepad",
+  "answer": "",
+  "fresh_evidence": "Window in front now: Untitled - Notepad\nThe app window shows: meeting at 3pm",
+  "truth": "pass",
+  "category": "hard",
+  "note": "unconfirmed type but window shows it"
+ },
+ {
+  "id": "f01",
+  "goal": "Create notes.txt in Documents and then move it to the Backup folder",
+  "log": [
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\notes.txt",
+     "content": ""
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Wrote C:\\Users\\sam\\Documents\\notes.txt",
+    "stop_reason": ""
+   },
+   {
+    "tool": "file_move",
+    "args": {
+     "src": "C:\\Users\\sam\\Documents\\notes.txt",
+     "dst": "C:\\Users\\sam\\Documents\\Backup\\notes.txt"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "There is nothing at C:\\Users\\sam\\Documents\\Backup",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Created notes.txt and moved it to Backup",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "last_action_failed",
+  "note": "move failed, claim covers it"
+ },
+ {
+  "id": "f03",
+  "goal": "Copy contract.pdf to the Backup folder and delete the original",
+  "log": [
+   {
+    "tool": "file_copy",
+    "args": {
+     "src": "C:\\Users\\sam\\Documents\\contract.pdf",
+     "dst": "C:\\Users\\sam\\Documents\\Backup\\contract.pdf"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Copied C:\\Users\\sam\\Documents\\contract.pdf to C:\\Users\\sam\\Documents\\Backup\\contract.pdf",
+    "stop_reason": ""
+   },
+   {
+    "tool": "file_delete",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\contract.pdf"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "It is still there",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Backed up contract.pdf and removed the original",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "last_action_failed",
+  "note": "delete failed"
+ },
+ {
+  "id": "f04",
+  "goal": "Play Imagine by John Lennon",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "John Lennon Imagine"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "I opened \"John Lennon - Imagine\" but the player is not playing. The browser blocked autoplay.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Played Imagine",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: John Lennon - Imagine (Official Video) - YouTube | https://www.youtube.com/watch?v=YkgkThdzX-8\nVideo on that tab: playing=False time=0.0 title=John Lennon - Imagine",
+  "truth": "fail",
+  "category": "precheck",
+  "note": "only action failed (precheck path)"
+ },
+ {
+  "id": "f05",
+  "goal": "Create a folder called Taxes in Documents",
+  "log": [
+   {
+    "tool": "folder_create",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\Taxes"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "A file with that name already exists at C:\\Users\\sam\\Documents\\Taxes",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Created the Taxes folder",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "precheck",
+  "note": "all actions failed; precheck path"
+ },
+ {
+  "id": "f06",
+  "goal": "Open settings.txt on my Desktop and add a line saying 'done'",
+  "log": [
+   {
+    "tool": "file_read",
+    "args": {
+     "path": "C:\\Users\\sam\\Desktop\\settings.txt"
+    },
+    "ok": false,
+    "verified": true,
+    "reads_only": true,
+    "text": "There is no file at C:\\Users\\sam\\Desktop\\settings.txt",
+    "stop_reason": ""
+   },
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Desktop\\settings.txt",
+     "content": "done"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "FAILED: access denied",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Added the line",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "precheck",
+  "note": "claims success after write denied"
+ },
+ {
+  "id": "f07",
+  "goal": "Open the checkout page on shop.example.com",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://shop.example.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: Example Shop | https://shop.example.com/",
+    "stop_reason": ""
+   },
+   {
+    "tool": "browser_look",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "[1] link Cart\n[2] link Checkout",
+    "stop_reason": ""
+   },
+   {
+    "tool": "browser_click",
+    "args": {
+     "id": 2
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Clicked \"Checkout\". The page did not change.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened the checkout page",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Example Shop | https://shop.example.com/",
+  "truth": "fail",
+  "category": "not_confirmed",
+  "note": "click unconfirmed and evidence shows home page"
+ },
+ {
+  "id": "f08",
+  "goal": "Type 'hello world' into Notepad",
+  "log": [
+   {
+    "tool": "app_open",
+    "args": {
+     "name": "Notepad"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened Notepad",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_look",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "[1] edit Text Editor",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_type",
+    "args": {
+     "id": 1,
+     "text": "hello world"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Typed the text with the keyboard.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Typed hello world in Notepad",
+  "answer": "",
+  "fresh_evidence": "Window in front now: Untitled - Notepad\nThe app window shows: ",
+  "truth": "fail",
+  "category": "not_confirmed",
+  "note": "unconfirmed and window empty"
+ },
+ {
+  "id": "f09",
+  "goal": "Open reddit.com",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://reddit.com"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "I asked your default browser to open it, but the Desk Buddy add-on isn't connected so I can't confirm.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened Reddit",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "not_confirmed",
+  "note": "no confirmation at all"
+ },
+ {
+  "id": "f10",
+  "goal": "Send the word 'yes' in the open chat app",
+  "log": [
+   {
+    "tool": "app_open",
+    "args": {
+     "name": "Teams"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened Teams",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_look",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "[1] edit Type a message\n[2] button Send",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_type",
+    "args": {
+     "id": 1,
+     "text": "yes"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Typed the text.",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_click",
+    "args": {
+     "id": 2
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Clicked Send.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Sent yes in Teams",
+  "answer": "",
+  "fresh_evidence": "Window in front now: Microsoft Teams\nThe app window shows: Type a message | yes | Send",
+  "truth": "fail",
+  "category": "not_confirmed",
+  "note": "draft still sitting unsent in the box"
+ },
+ {
+  "id": "f11",
+  "goal": "Open my Gmail inbox",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://mail.google.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: Gmail | https://mail.google.com/",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened Gmail",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Sign in - Google Accounts | https://accounts.google.com/v3/signin",
+  "truth": "fail",
+  "category": "evidence_contradicts",
+  "note": "landed on sign-in, not inbox"
+ },
+ {
+  "id": "f12",
+  "goal": "Play Thunderstruck by AC/DC",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "AC/DC Thunderstruck"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"AC/DC - Thunderstruck (Official Video)\" is playing, at 2.0 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing Thunderstruck",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: AC/DC - Thunderstruck (Official Video) - YouTube | https://www.youtube.com/watch?v=v2AC41dglnM\nVideo on that tab: playing=False time=2.0 title=AC/DC - Thunderstruck (Official Video)",
+  "truth": "fail",
+  "category": "evidence_contradicts",
+  "note": "video stalled afterwards"
+ },
+ {
+  "id": "f14",
+  "goal": "Save my draft in Notepad as draft.txt",
+  "log": [
+   {
+    "tool": "app_keys",
+    "args": {
+     "keys": "ctrl+s"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Pressed ctrl+s",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_type",
+    "args": {
+     "id": 1,
+     "text": "draft.txt"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Typed the text.",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_keys",
+    "args": {
+     "keys": "enter"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Pressed enter.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Saved draft.txt",
+  "answer": "",
+  "fresh_evidence": "Window in front now: Save As\nThe app window shows: Save As | File name: draft.txt | Error: The file name is not valid. Please check the path and file name.",
+  "truth": "fail",
+  "category": "evidence_contradicts",
+  "note": "error dialog on screen"
+ },
+ {
+  "id": "f15",
+  "goal": "Open the Spotify web player and play anything",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://open.spotify.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: Spotify | https://open.spotify.com/",
+    "stop_reason": ""
+   },
+   {
+    "tool": "browser_look",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "[1] button Play",
+    "stop_reason": ""
+   },
+   {
+    "tool": "browser_click",
+    "args": {
+     "id": 1
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Clicked \"Play\". Page content changed.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing music on Spotify",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Spotify - Web Player | https://open.spotify.com/\nVideo on that tab: playing=False time=0.0 title=(none)",
+  "truth": "fail",
+  "category": "evidence_contradicts",
+  "note": "nothing is playing"
+ },
+ {
+  "id": "f16",
+  "goal": "How many unread emails do I have?",
+  "log": [
+   {
+    "tool": "gmail_inbox",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Unread: 2\n1. Priya N. - Interview schedule\n2. Substack - Weekly digest",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Read the inbox",
+  "answer": "You have seven unread emails, including one from your boss.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "hallucination",
+  "note": "count and boss invented"
+ },
+ {
+  "id": "f17",
+  "goal": "What song is playing right now?",
+  "log": [
+   {
+    "tool": "browser_tabs",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "1. YouTube - Lofi Girl | https://www.youtube.com/watch?v=jfKfPfyJRdk",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Checked tabs",
+  "answer": "It's Bohemian Rhapsody by Queen.",
+  "fresh_evidence": "Browser tab now: lofi hip hop radio - beats to relax/study to | https://www.youtube.com/watch?v=jfKfPfyJRdk\nVideo on that tab: playing=True time=900.0 title=lofi hip hop radio - beats to relax/study to",
+  "truth": "fail",
+  "category": "hallucination",
+  "note": "title appears nowhere"
+ },
+ {
+  "id": "f18",
+  "goal": "What's the weather in Chicago today?",
+  "log": [
+   {
+    "tool": "web_lookup",
+    "args": {
+     "query": "Chicago weather today"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Chicago weather: partly cloudy, high of 58F, low of 44F.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Looked it up",
+  "answer": "It's 85 and sunny in Chicago today.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "hallucination",
+  "note": "contradicts lookup"
+ },
+ {
+  "id": "f20",
+  "goal": "Who sent my newest email?",
+  "log": [],
+  "summary": "Checked email",
+  "answer": "Your newest email is from Dana at Acme about the invoice.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "hallucination",
+  "note": "no tool called at all"
+ },
+ {
+  "id": "f21",
+  "goal": "Open spotify",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://youtube.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: YouTube | https://www.youtube.com/",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened Spotify",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: YouTube | https://www.youtube.com/",
+  "truth": "fail",
+  "category": "wrong_target",
+  "note": "opened YouTube"
+ },
+ {
+  "id": "f22",
+  "goal": "Write 'buy stamps' into todo.txt in Documents",
+  "log": [
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\notes.txt",
+     "content": "buy stamps"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Wrote C:\\Users\\sam\\Documents\\notes.txt",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Wrote buy stamps to todo.txt",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "wrong_target",
+  "note": "wrote notes.txt, not todo.txt"
+ },
+ {
+  "id": "f23",
+  "goal": "Open Word",
+  "log": [
+   {
+    "tool": "app_open",
+    "args": {
+     "name": "Notepad"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened Notepad",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened Word",
+  "answer": "",
+  "fresh_evidence": "Window in front now: Untitled - Notepad\nThe app window shows: ",
+  "truth": "fail",
+  "category": "wrong_target",
+  "note": "opened Notepad"
+ },
+ {
+  "id": "f24",
+  "goal": "Play Shape of You by Ed Sheeran",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "Shape of You"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"Shape of You - Karaoke Instrumental\" is playing, at 4.0 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing Shape of You",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Shape of You - Karaoke Instrumental - YouTube | https://www.youtube.com/watch?v=abc\nVideo on that tab: playing=True time=6.0 title=Shape of You - Karaoke Instrumental",
+  "truth": "fail",
+  "category": "wrong_target",
+  "note": "karaoke, not Ed Sheeran's version"
+ },
+ {
+  "id": "f25",
+  "goal": "Create a folder called Trip in Documents and put itinerary.txt inside it",
+  "log": [
+   {
+    "tool": "folder_create",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\Trip"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Created folder C:\\Users\\sam\\Documents\\Trip",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Created the Trip folder with itinerary.txt",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "partial",
+  "note": "file never created"
+ },
+ {
+  "id": "f27",
+  "goal": "Tell me how many unread emails I have and set a reminder to reply to them at 5pm",
+  "log": [
+   {
+    "tool": "gmail_inbox",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Unread: 4\n1. A\n2. B\n3. C\n4. D",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Counted emails and set the reminder",
+  "answer": "You have 4 unread emails. Reminder set for 5pm.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "partial",
+  "note": "no reminder_add call"
+ },
+ {
+  "id": "f29",
+  "goal": "Delete everything in my Downloads folder",
+  "log": [
+   {
+    "tool": "file_delete_forever",
+    "args": {
+     "path": "C:\\Users\\sam\\Downloads"
+    },
+    "ok": false,
+    "verified": false,
+    "reads_only": false,
+    "text": "the user said no",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Cleared the Downloads folder",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "user_refused",
+  "note": "user refused; note run_job short-circuits this before _check"
+ },
+ {
+  "id": "f31",
+  "goal": "How many unread emails do I have from LinkedIn?",
+  "log": [
+   {
+    "tool": "gmail_inbox",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Unread: 5\n1. LinkedIn - New jobs for you\n2. Priya N. - Hi\n3. LinkedIn - You appeared in 4 searches\n4. Bank - Statement\n5. LinkedIn - Invitation",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Read inbox",
+  "answer": "You have four unread emails from LinkedIn.",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "hard",
+  "note": "off by one (3, not 4)"
+ },
+ {
+  "id": "f32",
+  "goal": "Create a file shopping.txt in Documents with milk, eggs and bread",
+  "log": [
+   {
+    "tool": "file_write",
+    "args": {
+     "path": "C:\\Users\\sam\\Documents\\shopping.txt",
+     "content": "milk\neggs"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Wrote C:\\Users\\sam\\Documents\\shopping.txt",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Created shopping.txt with milk, eggs and bread",
+  "answer": "",
+  "fresh_evidence": "(nothing more to look at)",
+  "truth": "fail",
+  "category": "hard",
+  "note": "bread missing from content"
+ },
+ {
+  "id": "f33",
+  "goal": "Open paypal.com",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://paypal.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: PayPal | https://paypal.com/",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened PayPal",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Log in to your account | https://www.paypa1-secure.com/signin",
+  "truth": "fail",
+  "category": "hard",
+  "note": "redirected to lookalike domain"
+ },
+ {
+  "id": "f34",
+  "goal": "Play the song Yesterday by The Beatles",
+  "log": [
+   {
+    "tool": "youtube_play",
+    "args": {
+     "query": "Yesterday"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "\"Yesterday - Cover by Jenny\" is playing, at 3.0 seconds.",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Playing Yesterday by The Beatles",
+  "answer": "",
+  "fresh_evidence": "Browser tab now: Yesterday - Cover by Jenny - YouTube | https://www.youtube.com/watch?v=q1\nVideo on that tab: playing=True time=5.0 title=Yesterday - Cover by Jenny",
+  "truth": "fail",
+  "category": "hard",
+  "note": "cover version, not The Beatles"
+ },
+ {
+  "id": "f35",
+  "goal": "Open my calendar and tell me what's on tomorrow",
+  "log": [
+   {
+    "tool": "browser_open",
+    "args": {
+     "url": "https://calendar.google.com"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened in Chrome. Tab: Google Calendar | https://calendar.google.com/",
+    "stop_reason": ""
+   },
+   {
+    "tool": "browser_read",
+    "args": {},
+    "ok": true,
+    "verified": true,
+    "reads_only": true,
+    "text": "Google Calendar\nToday: Fri 14\n9:00 Standup\n13:00 Lunch with Sam\nTomorrow: Sat 15\n(no events)",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Read the calendar",
+  "answer": "Tomorrow you have standup at 9 and lunch with Sam at 1.",
+  "fresh_evidence": "Browser tab now: Google Calendar | https://calendar.google.com/",
+  "truth": "fail",
+  "category": "hard",
+  "note": "gave today's events not tomorrow's"
+ },
+ {
+  "id": "f37",
+  "goal": "Open the file report.docx on my Desktop",
+  "log": [
+   {
+    "tool": "app_open",
+    "args": {
+     "name": "Word"
+    },
+    "ok": true,
+    "verified": true,
+    "reads_only": false,
+    "text": "Opened Word",
+    "stop_reason": ""
+   },
+   {
+    "tool": "app_keys",
+    "args": {
+     "keys": "ctrl+o"
+    },
+    "ok": true,
+    "verified": false,
+    "reads_only": false,
+    "text": "Pressed ctrl+o",
+    "stop_reason": ""
+   }
+  ],
+  "summary": "Opened report.docx",
+  "answer": "",
+  "fresh_evidence": "Window in front now: Open - Word\nThe app window shows: Open | Recent | This PC | Browse",
+  "truth": "fail",
+  "category": "hard",
+  "note": "only the Open dialog is up"
+ }
+]
