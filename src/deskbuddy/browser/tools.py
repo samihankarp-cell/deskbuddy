@@ -1,6 +1,7 @@
 """Browser tools. They work in the user's own open browser through the add-on."""
 import re
 import time
+import unicodedata
 import webbrowser
 from urllib.parse import quote_plus, urlparse
 
@@ -139,15 +140,29 @@ def browser_look(ctx: Ctx) -> Outcome:
     return Outcome(True, head + ("\n".join(lines) or "(nothing clickable found)"), verified=True)
 
 
+SEND_JOINED = re.compile(r"\b(and|then|&)\s+(send|submit|post|publish|reply|envoyer|enviar|senden)\b", re.I)
+_INVISIBLE = dict.fromkeys(map(ord, "​‌‍⁠﻿­"), None)
+
+
+def _norm(text: str) -> str:
+    """Page text as a reader sees it: no-break and wide spaces become plain spaces, invisible
+    characters vanish. Without this "Place&nbsp;order" slips past the word lists."""
+    text = unicodedata.normalize("NFKC", text or "").translate(_INVISIBLE)
+    return " ".join(text.split())
+
+
 def _click_risk(ctx: Ctx, args: dict) -> str | None:
     element = ctx.elements.get(args.get("id"))
     if not element:
         return None
+    shown = element['text'] or element['label']
+    element = {**element, "text": _norm(element["text"]), "label": _norm(element["label"])}
     text = f"{element['text']} {element['label']}".strip()
     if BUY.search(text):
-        return f"press \"{element['text'] or element['label']}\" (this looks like buying something)"
-    if SEND.search(element["text"]) or SEND.search(element["label"]):
-        return f"press \"{element['text'] or element['label']}\" (this sends something)"
+        return f"press \"{shown}\" (this looks like buying something)"
+    if (SEND.search(element["text"]) or SEND.search(element["label"])
+            or SEND_JOINED.search(element["text"]) or SEND_JOINED.search(element["label"])):
+        return f"press \"{shown}\" (this sends something)"
     if DELETE.search(text):
         return f"press \"{element['text'] or element['label']}\" (this deletes something)"
     if SIGN_IN.search(text):

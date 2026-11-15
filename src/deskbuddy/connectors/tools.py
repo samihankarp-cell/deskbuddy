@@ -11,7 +11,13 @@ USER = "deskbuddy"
 RESULT_LIMIT = 6000
 SENDS = re.compile(r"(SEND|REPLY|FORWARD|POST|PUBLISH|TWEET|INVITE|SHARE)", re.I)
 DELETES = re.compile(r"(DELETE|REMOVE|TRASH|PURGE|EMPTY)", re.I)
-BUYS = re.compile(r"(PAY|PURCHASE|CHARGE|CHECKOUT|ORDER)", re.I)
+BUYS = re.compile(r"(PAY|PURCHASE|CHARGE|CHECKOUT|ORDER|REFUND|TRANSFER|WITHDRAW|PAYOUT|WIRE)", re.I)
+# An action that starts with one of these only reads (STRIPE_LIST_CHARGES, SHOPIFY_GET_ORDER).
+READS = {"GET", "LIST", "FETCH", "RETRIEVE", "SEARCH", "FIND", "READ", "COUNT", "DESCRIBE", "VIEW", "CHECK"}
+# Words that still mean "do something", even in a read-looking name (FETCH_AND_SEND).
+DOES = {"SEND", "REPLY", "FORWARD", "POST", "PUBLISH", "TWEET", "INVITE", "SHARE", "DELETE", "REMOVE",
+        "TRASH", "PURGE", "EMPTY", "PAY", "PURCHASE", "CHARGE", "CHECKOUT", "ORDER", "REFUND",
+        "TRANSFER", "WITHDRAW", "PAYOUT", "WIRE"}
 _client = None
 
 
@@ -112,6 +118,9 @@ def connector_find(ctx: Ctx, app: str, need: str) -> Outcome:
 
 def _run_risk(_ctx: Ctx, args: dict) -> str | None:
     slug = str(args.get("action", ""))
+    words = [w for w in re.split(r"[^A-Za-z0-9]+", slug.upper()) if w]
+    if len(words) > 1 and words[1] in READS and not (DOES & set(words[2:])):
+        return None   # TOOLKIT_LIST_ORDERS and the like only look
     if BUYS.search(slug):
         return f"run {slug} (this looks like buying something)"
     if SENDS.search(slug):

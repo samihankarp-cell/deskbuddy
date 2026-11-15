@@ -28,7 +28,8 @@ READ_WORDS = {"get", "list", "search", "read", "fetch", "find", "query", "descri
               "view", "check", "lookup", "count"}
 SEND_WORDS = {"send", "reply", "forward", "post", "publish", "tweet", "invite", "share", "email"}
 DELETE_WORDS = {"delete", "remove", "trash", "purge", "empty", "drop", "destroy", "erase"}
-BUY_WORDS = {"pay", "purchase", "charge", "checkout", "order", "buy", "transfer"}
+BUY_WORDS = {"pay", "payment", "payments", "purchase", "charge", "checkout", "order", "buy",
+             "transfer", "refund", "withdraw", "payout", "wire"}
 
 
 @dataclass
