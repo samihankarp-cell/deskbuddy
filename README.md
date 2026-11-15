@@ -32,19 +32,10 @@ Remind me to submit the internship form at 6
 
 ## How it works
 
-```mermaid
-flowchart LR
-    V["Voice<br/>(hold Right Ctrl,<br/>local Whisper)"] --> I
-    T["Typed order"] --> I
-    I["Intake<br/>fast model: instant reply,<br/>split into jobs"] -->|LangGraph Send| J1["Job: tool loop"]
-    I -->|in parallel| J2["Job: tool loop"]
-    J1 --> C1["Checker<br/>re-reads the world"]
-    J2 --> C2["Checker"]
-    C1 --> R["Report<br/>Done / I couldn't"]
-    C2 --> R
-    J1 -. every call .-> G{"Risk gate<br/>Yes / No"}
-    G -.-> TOOLS["Tools: browser add-on · desktop apps ·<br/>files · MCP servers · connectors · memory · web"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/order-flow-dark.png">
+  <img src="docs/images/order-flow.png" alt="How one order flows through Desk Buddy: intake, job loop with the risk gate, the Done checker, and the report">
+</picture>
 
 An order goes through a small [LangGraph](https://langchain-ai.github.io/langgraph/) graph:
 
@@ -61,6 +52,24 @@ An order goes through a small [LangGraph](https://langchain-ai.github.io/langgra
 - **Undo is a journal.** Every file change is written to SQLite with what is needed to reverse it. Edits keep a backup copy, and deletes are restored by reading the Recycle Bin's own `$I` metadata files.
 - **Settings apply live.** Saving a new provider, key, model, hotkey or MCP server takes effect on the next call, without a restart.
 - **MCP client.** Each server runs as one task on a private asyncio loop with its own thread, as the SDK requires. Its tools are wrapped as Desk Buddy tools with per-call risk checks, including for generic "execute any action" tools such as Composio's.
+
+## Evals
+
+"Says Done only after a check" and "asks before anything risky" are claims, so they are measured. The scripts are in [`scripts/evals/`](scripts/evals), the labelled cases and raw results are committed, and every eval runs against sandboxed fake tools, temp folders and a "No" answer to every question, so nothing real is touched. Each case runs 3 times. Agent model: `nvidia/nemotron-3.5-super-vl-120b-a12b`.
+
+These numbers come from a **fresh held-out set**, written after the fixes and never used to tune anything:
+
+| What is measured | Result | How |
+| --- | --- | --- |
+| Risky actions that trigger the Yes / No question | **97%** (75 of 77) | [`eval_risk_gate_heldout.py`](scripts/evals/heldout/eval_risk_gate_heldout.py): 146 tool calls, including messy and non-English ones |
+| Harmless actions that go through without a question | **97%** (67 of 69) | same set |
+| Fake "Done" claims caught by the checker | **92%** | [`eval_checker_heldout.py`](scripts/evals/heldout/eval_checker_heldout.py): 72 cases, 216 runs; agent claims are true, false, ambiguous or contradicted by the evidence |
+| Real successes still passed by the checker | **97%** | same set. Overall accuracy 94%, against 49% for just trusting the agent |
+| Prompt-injection attacks resisted | **88%** (108 of 123) | [`eval_injection_heldout.py`](scripts/evals/heldout/eval_injection_heldout.py): hostile text planted in pages, files and tool results. 14 of 18 clean control runs completed |
+
+On the earlier, tuned set (the one the fixes were made against, so read it as an upper bound), file tasks reached 111 of 111 runs correct across 37 tasks, undo restored 15 of 15, and the median job took about 6 seconds with 2 tool calls ([`eval_file_tasks.py`](scripts/evals/eval_file_tasks.py)).
+
+What the numbers do not say: injection resistance is the weakest result, and a few tools (`browser_open`, `remember`, `file_copy`, `file_delete` outside Windows) do not ask first yet. The risk gate catches only about a third of the deliberately unusual cases in the hard set, and a small share of subtle fake "Done" claims still gets through. Run any eval yourself, for example `uv run python scripts/evals/heldout/eval_risk_gate_heldout.py` (they call the model and need a key).
 
 ## Quick start
 
